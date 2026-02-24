@@ -78,6 +78,7 @@ Slides within a chapter are separated by `----` (horizontal rule). The `<!-- .sl
 - **Match register to context.** Use casual, conversational language for explanations and analogies (e.g., "猜下一个词", "没地方坐了"). Use proper technical terms for concepts and definitions (e.g., "涌现能力", "分词器", not informal substitutes). Don't use casual language where a technical term is expected, and don't use stiff/formal language where a simple explanation is needed.
 - **One idea per slide.** If a slide's content overflows the screen, split it into multiple slides. Each slide should focus on a single point.
 - **Introduce concepts before using them.** Never use a term (e.g., "tokenizer", "token") without first explaining what it is. New concepts must be introduced on the same slide or an earlier slide before being referenced.
+- **If a concept is worth mentioning, it's worth explaining.** When a technical term needs to appear (in a slide, diagram, or label), add a slide to introduce it rather than avoiding or replacing it with a simplified substitute. Proper terminology should be taught, not hidden.
 
 ## SVG Diagram Rules
 

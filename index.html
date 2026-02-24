@@ -40,6 +40,18 @@
         place-content: center !important;
         text-align: center;
       }
+      .reveal .slides > section > section > p:has(> img) {
+        flex: 1 1 0;
+        min-height: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .reveal .slides > section > section > p > img {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+      }
       .reveal blockquote {
         border-left: 6px solid #e7ad52;
         min-width: 90%;

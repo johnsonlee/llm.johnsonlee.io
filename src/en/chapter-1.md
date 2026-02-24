@@ -52,6 +52,18 @@ The tokenizer splits text into small pieces called **tokens**:
 
 ----
 
+## Embedding: Turning Words into Numbers
+
+The tokenizer split text into tokens, but the LLM only understands numbers. What now?
+
+- Each token gets a **number vector** — a list of numbers representing its meaning
+- This "token → number vector" conversion is called **embedding**
+- Words with similar meanings get similar vectors — "cat" and "dog" are closer than "cat" and "table"
+
+> Embedding is the LLM's "dictionary": look up a token, get its number representation.
+
+----
+
 ## Why Is It Called "Transformer"?
 
 ![Transformer layer-by-layer transformation](src/en/images/transformer-layers.svg)
@@ -88,6 +100,20 @@ How do we fix this?
 - Each layer passes a **copy of the original input** straight to its output
 - Even if one layer learns nothing useful (layer(x) ≈ 0), the original information survives
 - It's like playing telephone while also texting the original message — the truth always gets through
+
+----
+
+## Layer Normalization
+
+Shortcut connections solve the signal loss problem, but there's another issue: numbers can become **wildly different in size** after many layers, making the LLM "dizzy."
+
+**Layer normalization** is like recalibrating after each layer:
+
+- Rescale all numbers back to a **consistent range**
+- The relative order stays the same — only the scale gets tidied up
+- Like converting raw test scores to percentages — easier to compare and work with
+
+> Shortcut connection + layer normalization together form the green "Residual Connection + Layer Norm" blocks in the Transformer architecture diagram.
 
 ----
 

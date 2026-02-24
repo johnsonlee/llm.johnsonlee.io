@@ -1,7 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 620" font-family="sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 580" font-family="sans-serif">
   <defs>
     <marker id="a" markerWidth="10" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
       <path d="M0,0 L10,4 L0,8 Z" fill="#aaa"/>
+    </marker>
+    <marker id="g" markerWidth="10" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#5dbe8a"/>
     </marker>
   </defs>
 
@@ -21,58 +24,66 @@
   <line x1="260" y1="134" x2="260" y2="154" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
 
   <!-- Transformer Block (repeated N times) -->
-  <rect x="40" y="162" width="440" height="340" rx="14" fill="none" stroke="#4a9eff" stroke-width="2" stroke-dasharray="8,4"/>
+  <rect x="40" y="162" width="440" height="300" rx="14" fill="none" stroke="#4a9eff" stroke-width="2" stroke-dasharray="8,4"/>
   <text x="470" y="180" text-anchor="end" fill="#4a9eff" font-size="12" font-weight="bold">× N 层</text>
+
+  <!-- Main flow connector: Embedding arrow end → MHA top -->
+  <line x1="260" y1="162" x2="260" y2="174" stroke="#aaa" stroke-width="2"/>
 
   <!-- Multi-Head Attention -->
   <rect x="110" y="182" width="300" height="50" rx="10" fill="#4a9eff"/>
   <text x="260" y="203" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">多头注意力</text>
   <text x="260" y="222" text-anchor="middle" fill="#ddd" font-size="10">每个字扫一眼所有字，收集线索</text>
 
-  <!-- Arrow + Add&Norm 1 -->
+  <!-- Arrow: MHA → Add&Norm 1 -->
   <line x1="260" y1="240" x2="260" y2="256" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
 
-  <!-- Residual arrow (left side) going from before attention to after Add&Norm -->
-  <line x1="90" y1="155" x2="90" y2="280" stroke="#5dbe8a" stroke-width="2" stroke-dasharray="4,3"/>
-  <line x1="90" y1="280" x2="108" y2="280" stroke="#5dbe8a" stroke-width="2" marker-end="url(#a)"/>
+  <!-- Residual 1: branch from main flow before MHA, bypass to Add&Norm 1 -->
+  <circle cx="260" cy="170" r="3" fill="#5dbe8a"/>
+  <line x1="257" y1="170" x2="90" y2="170" stroke="#5dbe8a" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="90" y1="170" x2="90" y2="280" stroke="#5dbe8a" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="90" y1="280" x2="108" y2="280" stroke="#5dbe8a" stroke-width="2" marker-end="url(#g)"/>
 
+  <!-- Add&Norm 1 -->
   <rect x="116" y="264" width="288" height="34" rx="8" fill="#5dbe8a"/>
   <text x="260" y="286" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">残差连接 + 层归一化</text>
 
-  <!-- Arrow -->
+  <!-- Arrow: Add&Norm 1 → FFN -->
   <line x1="260" y1="306" x2="260" y2="322" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- Residual 2: branch from main flow before FFN, bypass to Add&Norm 2 -->
+  <circle cx="260" cy="312" r="3" fill="#5dbe8a"/>
+  <line x1="257" y1="312" x2="90" y2="312" stroke="#5dbe8a" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="90" y1="312" x2="90" y2="428" stroke="#5dbe8a" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="90" y1="428" x2="108" y2="428" stroke="#5dbe8a" stroke-width="2" marker-end="url(#g)"/>
 
   <!-- Feed-Forward Network -->
   <rect x="110" y="330" width="300" height="50" rx="10" fill="#4a9eff"/>
   <text x="260" y="351" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">前馈网络</text>
   <text x="260" y="370" text-anchor="middle" fill="#ddd" font-size="10">每个字独立“想一想”，更新理解</text>
 
-  <!-- Arrow + Add&Norm 2 -->
+  <!-- Arrow: FFN → Add&Norm 2 -->
   <line x1="260" y1="388" x2="260" y2="404" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
 
-  <!-- Residual arrow (left side) for FFN -->
-  <line x1="90" y1="300" x2="90" y2="428" stroke="#5dbe8a" stroke-width="2" stroke-dasharray="4,3"/>
-  <line x1="90" y1="428" x2="108" y2="428" stroke="#5dbe8a" stroke-width="2" marker-end="url(#a)"/>
-
+  <!-- Add&Norm 2 -->
   <rect x="116" y="412" width="288" height="34" rx="8" fill="#5dbe8a"/>
   <text x="260" y="434" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">残差连接 + 层归一化</text>
 
-  <!-- End of block bracket -->
   <!-- Arrow to output -->
-  <line x1="260" y1="510" x2="260" y2="530" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="260" y1="470" x2="260" y2="490" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
 
   <!-- Output -->
-  <rect x="150" y="538" width="220" height="40" rx="10" fill="#e85d5d"/>
-  <text x="260" y="559" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">输出层</text>
-  <text x="260" y="573" text-anchor="middle" fill="#ddd" font-size="10">预测下一个 token 的概率</text>
+  <rect x="150" y="498" width="220" height="40" rx="10" fill="#e85d5d"/>
+  <text x="260" y="519" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">输出层</text>
+  <text x="260" y="533" text-anchor="middle" fill="#ddd" font-size="10">预测下一个 token 的概率</text>
 
   <!-- Legend -->
-  <rect x="80" y="595" width="12" height="12" rx="2" fill="#8b5cf6"/>
-  <text x="98" y="606" fill="#aaa" font-size="10">数据</text>
-  <rect x="150" y="595" width="12" height="12" rx="2" fill="#4a9eff"/>
-  <text x="168" y="606" fill="#aaa" font-size="10">计算</text>
-  <rect x="220" y="595" width="12" height="12" rx="2" fill="#5dbe8a"/>
-  <text x="238" y="606" fill="#aaa" font-size="10">残差+归一化</text>
-  <rect x="330" y="595" width="12" height="12" rx="2" fill="#e85d5d"/>
-  <text x="348" y="606" fill="#aaa" font-size="10">输出</text>
+  <rect x="80" y="555" width="12" height="12" rx="2" fill="#8b5cf6"/>
+  <text x="98" y="566" fill="#aaa" font-size="10">数据</text>
+  <rect x="150" y="555" width="12" height="12" rx="2" fill="#4a9eff"/>
+  <text x="168" y="566" fill="#aaa" font-size="10">计算</text>
+  <rect x="220" y="555" width="12" height="12" rx="2" fill="#5dbe8a"/>
+  <text x="238" y="566" fill="#aaa" font-size="10">残差+归一化</text>
+  <rect x="330" y="555" width="12" height="12" rx="2" fill="#e85d5d"/>
+  <text x="348" y="566" fill="#aaa" font-size="10">输出</text>
 </svg>
