@@ -7,7 +7,7 @@
 ## 16 Topics, 100 Papers
 
 <ol class="two-columns">
-<li>How Computers Learn Language</li>
+<li>How LLMs Learn Language</li>
 <li>The GPT Family</li>
 <li>Is Bigger Always Smarter?</li>
 <li>Free AI for Everyone</li>

@@ -7,7 +7,7 @@
 ## 16 个主题，100 篇论文
 
 <ol class=“two-columns”>
-<li>计算机怎么学语言</li>
+<li>大语言模型怎么学语言</li>
 <li>GPT 家族</li>
 <li>越大就越聪明吗？</li>
 <li>免费的 AI</li>

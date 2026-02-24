@@ -2,7 +2,7 @@
 
 ## 1. Transformer Foundations
 
-*How does a computer understand language?*
+*How does an LLM understand language?*
 
 ----
 
@@ -18,7 +18,7 @@ You understand because you see **all the words at once** and know how they relat
 
 ----
 
-## Can a computer do the same?
+## Can an LLM do the same?
 
 Early idea: read words **one by one**, like a conveyor belt.
 
@@ -54,7 +54,7 @@ The tokenizer splits text into small pieces called **tokens**:
 
 <!-- .slide: class="center" -->
 
-## What if the computer could look at every word at the same time?
+## What if the LLM could look at every word at the same time?
 
 ----
 
