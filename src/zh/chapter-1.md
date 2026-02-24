@@ -52,21 +52,21 @@
 
 ----
 
-## 词嵌入 (Embedding)：把字变成数字
+## 为什么叫”Transformer”？
 
-分词器把文本切成了 token，但大语言模型只认数字。怎么办？
-
-- 每个 token 都有一个对应的 **数字向量** ——一串数字，代表这个字的含义
-- 这个“token → 数字向量”的转换过程，就叫 **词嵌入 (Embedding)**
-- 含义相近的字，向量也很接近——“猫”和“狗”比“猫”和“桌子”更像
-
-> 词嵌入是大语言模型的“字典”：查一下 token，就能拿到对应的数字表示。
+![Transformer 逐层变换](src/zh/images/transformer-layers.svg)
 
 ----
 
-## 为什么叫“Transformer”？
+## 词嵌入 (Embedding)：把字变成数字
 
-![Transformer 逐层变换](src/zh/images/transformer-layers.svg)
+Transformer 的每一层都在做数学运算——但文字不是数字。怎么让大语言模型”看懂”文字呢？
+
+- 每个 token 都有一个对应的 **数字向量** ——一串数字，代表这个字的含义
+- 这个”token → 数字向量”的转换过程，就叫 **词嵌入 (Embedding)**
+- 含义相近的字，向量也很接近——“猫”和”狗”比”猫”和”桌子”更像
+
+> 词嵌入是大语言模型的”字典”：查一下 token，就能拿到对应的数字表示。
 
 ----
 
