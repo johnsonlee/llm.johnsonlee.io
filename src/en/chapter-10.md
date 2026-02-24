@@ -32,6 +32,19 @@ The model learns **when** and **how** to use each tool!
 
 ----
 
+## Tools an LLM Can Learn to Use
+
+Here are some tools Toolformer learned on its own:
+
+- **Calculator**: "What is 593 × 217?" → [CALC(593 * 217)] → 128,681
+- **Search engine**: "Who won the 2022 World Cup?" → [SEARCH(2022 World Cup winner)] → Argentina
+- **Calendar**: "What day is 90 days from Jan 1?" → [CALENDAR(+90 days)] → April 1st
+- **Translator**: "How do you say 'hello' in Japanese?" → [TRANSLATE(hello, ja)] → こんにちは
+
+The LLM decides *when* a tool would help and *which* tool to use — all by itself!
+
+----
+
 ## Voyager: An AI that explores Minecraft
 
 What if an AI agent could explore an open world and learn new skills?
@@ -43,6 +56,18 @@ Voyager plays Minecraft with three components:
 - **Sandbox**: Tests new skills safely before committing
 
 > [Voyager](https://arxiv.org/abs/2305.16291) (2023) — an open-ended learning agent
+
+----
+
+## Why Voyager Is Special
+
+Most AI agents follow a fixed script. Voyager is different:
+
+- It **invents new skills** as it plays — nobody told it how to build a bridge
+- Skills are saved as **reusable code** — "I know how to smelt iron" gets stored permanently
+- Each new skill builds on previous ones — just like how you learn: crawl → walk → run → dance
+
+This is the first AI that truly **learns by exploring**, not just by following instructions.
 
 ----
 
@@ -99,6 +124,19 @@ How should you structure an AI agent? Anthropic shared practical patterns:
 
 ----
 
+## Agent Patterns in Everyday Life
+
+These agent patterns aren't just for AI — you use them every day!
+
+- **Chaining**: Making a sandwich → get bread → add ingredients → close → cut. Each step feeds the next.
+- **Routing**: Homework time → math problems go to your "math brain," essay goes to your "writing brain"
+- **Parallelization**: Downloading a file while reading an article — two tasks at once
+- **Orchestration**: A team project — the leader assigns tasks to each member, collects results
+
+AI agents organize their work the same way!
+
+----
+
 ## Generative Agents: A virtual town
 
 What happens when 25 AI agents live in a virtual town?
@@ -122,3 +160,21 @@ What happens when 25 AI agents live in a virtual town?
 | [SWE-Agent](https://arxiv.org/abs/2405.15793) (2024) | Better interfaces for agents |
 | [Building Agents](https://www.anthropic.com/research/building-effective-agents) (2024) | Practical agent patterns |
 | [Smallville](https://arxiv.org/abs/2304.03442) (2023) | 25 AI agents form a society |
+
+----
+
+## Want to Learn More?
+
+- [Building Effective Agents (Anthropic)](https://www.anthropic.com/research/building-effective-agents) — Practical patterns from Anthropic
+- [Voyager Paper Explained](https://www.youtube.com/watch?v=u3ynhTkSJKE) — How an AI learned to play Minecraft (video)
+- [Generative Agents: Interactive Simulacra](https://reverie.herokuapp.com/arXiv_Demo/) — Explore the virtual town of AI agents (live demo)
+- [SWE-Bench Leaderboard](https://www.swebench.com/) — See which AI agents are best at fixing real bugs
+
+----
+
+## Think About It
+
+- AI agents can use tools like search engines and calculators. What tool would you most want an AI to learn to use? Why?
+- Voyager saves skills as code and reuses them. How is this similar to how you build on things you've already learned?
+- The Smallville experiment showed AI agents forming friendships and throwing parties. Do you think AI can truly have "social" behavior, or is it just mimicking patterns?
+- SWE-Bench shows that AI agents can only fix about 5% of real bugs. Why do you think real-world coding is so much harder than toy problems?

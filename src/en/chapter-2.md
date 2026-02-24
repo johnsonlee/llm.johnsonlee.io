@@ -29,6 +29,17 @@ This is called **zero-shot** learning — doing a task you were never taught.
 
 ----
 
+## How Zero-Shot Works
+
+Imagine a student who studied every book in the library but was never taught math class:
+
+- Teacher: "What is 12 + 7?"
+- Student: "Well, I've read lots of books with math in them... the answer is 19!"
+
+GPT-2 was never *taught* to translate, but it had read so many translations that it could do it anyway. The knowledge was already there — it just needed the right question.
+
+----
+
 ## GPT-3: Show me a few examples
 
 What if we scale up even more — to **175 billion** parameters?
@@ -40,6 +51,17 @@ What if we scale up even more — to **175 billion** parameters?
 This is called **few-shot learning** or **In-Context Learning (ICL)**.
 
 > [GPT-3](https://arxiv.org/abs/2005.14165) (2020) — the model that proved scale unlocks new abilities
+
+----
+
+## In-Context Learning: Learning on the Fly
+
+Here's the magic of few-shot learning — the LLM doesn't retrain. It learns from examples **right in the prompt**:
+
+- "cat → gato, dog → perro, house → ?"
+- The LLM sees the pattern and answers: "casa"
+
+It's like showing a friend a card game: after watching 2-3 rounds, they "get it" and can play. The LLM does the same — it picks up patterns from just a handful of examples.
 
 ----
 
@@ -84,6 +106,18 @@ This is called **RLHF** — Reinforcement Learning from Human Feedback.
 
 ----
 
+## Why RLHF Was a Game-Changer
+
+Before RLHF, talking to an LLM was frustrating:
+
+- You: "Write a short poem about dogs"
+- Old LLM: "Dogs are mammals of the family Canidae, characterized by..." (it just predicts likely text!)
+- After RLHF: "Furry friends with wagging tails, running through the morning trails..."
+
+RLHF taught the LLM the difference between *predicting text* and *being helpful*. This single idea turned a text predictor into ChatGPT.
+
+----
+
 ## GPT-4: Not just words anymore
 
 What if the model could also understand **pictures**?
@@ -108,6 +142,17 @@ You know how hard math problems require you to **think step by step** before ans
 
 ----
 
+## How Thinking Time Helps
+
+Compare two approaches to a tricky math problem:
+
+- **Old way**: "The answer is 42" (instant, often wrong)
+- **o1 way**: "Let me think... First, I'll break this into parts... Part 1 gives me X... Part 2 gives me Y... Combining them... The answer is 37"
+
+The extra thinking time lets the LLM catch mistakes, try different approaches, and verify its own work — just like you do on a test.
+
+----
+
 ## Chapter 2 Summary
 
 | Paper | Key Idea |
@@ -118,3 +163,21 @@ You know how hard math problems require you to **think step by step** before ans
 | [InstructGPT](https://arxiv.org/abs/2203.02155) (2022) | Human feedback → follow instructions (RLHF) |
 | [GPT-4](https://arxiv.org/abs/2303.08774) (2023) | Multimodal — text + images |
 | [o1/o3](https://openai.com/index/deliberative-alignment/) (2024) | Think before answering |
+
+----
+
+## Want to Learn More?
+
+- [Jay Alammar: The Illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/) — Visual walkthrough of how GPT-2 generates text
+- [Stephen Wolfram: What Is ChatGPT Doing?](https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/) — A deep yet accessible explanation
+- [Andrej Karpathy: Intro to Large Language Models](https://www.youtube.com/watch?v=zjkBMFhNj_g) — One-hour overview of the whole GPT journey
+- [RLHF Explained Simply](https://huggingface.co/blog/rlhf) — How human feedback shapes AI behavior
+
+----
+
+## Think About It
+
+- GPT-2 had 1.5 billion parameters, GPT-3 had 175 billion. If you could add just 10 billion more, where would you put them — in understanding or in generating? Why?
+- InstructGPT learns from human preferences. But different people prefer different things — how should the model handle disagreements?
+- o1 "thinks before answering." Can you think of a situation where thinking too long might actually be worse than answering quickly?
+- If you could teach an LLM one skill that current models don't have, what would it be?

@@ -32,6 +32,18 @@ HuggingFace built a massive pipeline to filter the web:
 
 ----
 
+## Why Data Cleaning Is So Hard
+
+Imagine cleaning a swimming pool that's the size of an ocean:
+
+- **Duplicates**: The same Wikipedia article copied on 10,000 websites. If you don't remove copies, the model memorizes instead of learning.
+- **Quality**: A well-written blog post vs a spam page full of ads. How do you teach a computer to tell the difference?
+- **Toxicity**: Hate speech, misinformation, personal data. Must be removed, but careful not to remove too much or the model becomes too narrow.
+
+FineWeb processes **15 trillion words** through this pipeline — and makes the result free for everyone!
+
+----
+
 ## Now, how do we test the model?
 
 Training is done. But is the model actually smart? We need **benchmarks** — standardized tests for AI.
@@ -51,6 +63,20 @@ Training is done. But is the model actually smart? We need **benchmarks** — st
 - Tests **breadth** of knowledge — can the model be a generalist?
 
 > [MMLU](https://arxiv.org/abs/2009.03300) (2020) — 57 subjects, thousands of questions
+
+----
+
+## What MMLU Questions Look Like
+
+Here are real examples from different subjects:
+
+**Astronomy**: "What causes the seasons on Earth?" (A) Distance from the Sun (B) Tilt of Earth's axis ✓ (C) Speed of rotation (D) Size of the Moon
+
+**Law**: "Under the Fourth Amendment, which of the following is NOT considered a 'search'?" ...
+
+**Medicine**: "A 45-year-old patient presents with..." ...
+
+57 subjects, from elementary school to graduate school. A model that scores well on MMLU is a true generalist!
 
 ----
 
@@ -93,6 +119,18 @@ The ultimate question: can AI **reason about things it's never seen**?
 
 ----
 
+## Why ARC-AGI Is So Hard for LLMs
+
+ARC puzzles look simple to humans:
+
+- Input: 3 colored grids showing a pattern → Output: What should the 4th grid look like?
+- Humans solve most puzzles in seconds — we see the rule intuitively
+- LLMs struggle because each puzzle has a **new rule** they've never seen before
+
+This is the difference between **memorizing patterns** (what LLMs are great at) and **understanding abstract rules** (what humans do naturally). ARC-AGI tests whether AI can truly reason, not just recall.
+
+----
+
 ## Chapter 16 Summary
 
 | Paper | Key Idea |
@@ -102,3 +140,21 @@ The ultimate question: can AI **reason about things it's never seen**?
 | [GPQA](https://arxiv.org/abs/2311.12022) (2023) | Expert-level, Google-proof questions |
 | [IFEval](https://arxiv.org/abs/2311.07911) (2023) | Can it follow instructions precisely? |
 | [ARC-AGI](https://arxiv.org/abs/1911.01547) (2019) | Abstract reasoning — still unsolved |
+
+----
+
+## Want to Learn More?
+
+- [FineWeb Dataset (Hugging Face)](https://huggingface.co/datasets/HuggingFaceFW/fineweb) — Explore the 15T-token dataset yourself
+- [MMLU Leaderboard (Papers With Code)](https://paperswithcode.com/sota/multi-task-language-understanding-on-mmlu) — See which models score highest on the knowledge exam
+- [ARC-AGI Prize](https://arcprize.org/) — Try solving ARC puzzles yourself and compete for a $1M prize
+- [Chatbot Arena (LMSYS)](https://chat.lmsys.org/) — Vote on which LLM gives better answers in blind comparisons
+
+----
+
+## Think About It
+
+- FineWeb removed duplicates from the internet. But some text is repeated because it's important (like famous quotes). How do you decide what's a "bad" duplicate vs a "useful" repetition?
+- MMLU tests 57 subjects with multiple-choice questions. Is multiple choice a good way to test intelligence? What important skills does it miss?
+- ARC-AGI puzzles are easy for humans but hard for AI. Can you think of the reverse — tasks that are easy for AI but hard for humans?
+- If you were designing a new benchmark to test AI, what would you test that current benchmarks don't?

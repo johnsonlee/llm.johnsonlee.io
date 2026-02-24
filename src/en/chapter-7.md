@@ -30,6 +30,20 @@ Remember how your math teacher says "show your work"?
 
 ----
 
+## Chain-of-Thought: Before and After
+
+**Without CoT:**
+> Q: "Roger has 5 tennis balls. He buys 2 cans of 3. How many does he have?"
+> A: "11" (just the answer — sometimes wrong)
+
+**With CoT:**
+> Q: Same question. Let's think step by step.
+> A: "Roger starts with 5 balls. He buys 2 cans, each with 3 balls. 2 × 3 = 6. 5 + 6 = 11."
+
+The reasoning steps help the LLM **check its own logic** and catch mistakes along the way.
+
+----
+
 ## Zero-Shot CoT: One magic sentence
 
 Do you need examples? Nope! Just add one sentence:
@@ -54,6 +68,17 @@ Chain-of-Thought follows one path. But what if that path leads to a dead end?
 - Like solving a maze — try different paths, keep the best one
 
 > [Tree of Thoughts](https://arxiv.org/abs/2305.10601) (2023) — explore, evaluate, backtrack
+
+----
+
+## Tree of Thoughts: Solving a Maze
+
+Imagine you're in a maze:
+
+- **Chain-of-Thought** = pick one path and walk to the end. If it's a dead end, too bad!
+- **Tree of Thoughts** = at each fork, send a scout down each path. Scouts report back. Choose the most promising path. If it fails, backtrack and try another.
+
+This is exactly how chess engines work — explore many moves ahead, prune bad ones, and pick the best strategy.
 
 ----
 
@@ -83,6 +108,21 @@ What if the model needs information it doesn't have?
 Interleaving **reasoning** and **actions** — this is the foundation of AI agents!
 
 > [ReAct](https://arxiv.org/abs/2210.03629) (2022) — the blueprint for AI agents
+
+----
+
+## ReAct in Action: A Real Example
+
+> **Question**: "What is the population of the country where the Eiffel Tower is located?"
+
+1. **Think**: "I need to find which country has the Eiffel Tower"
+2. **Act**: Search → "The Eiffel Tower is in Paris, France"
+3. **Think**: "Now I need France's population"
+4. **Act**: Search → "France has about 68 million people"
+5. **Think**: "I have the answer now"
+6. **Act**: Answer → "About 68 million"
+
+Two searches, three thoughts — the Think-Act loop broke down a complex question into simple steps!
 
 ----
 
@@ -124,3 +164,21 @@ Can a model improve its own reasoning?
 | [ReAct](https://arxiv.org/abs/2210.03629) (2022) | Reasoning + actions = agents |
 | [Test-Time Compute](https://arxiv.org/abs/2408.03314) (2024) | Think harder on hard problems |
 | [STaR](https://arxiv.org/abs/2203.14465) (2022) | Self-taught reasoning improvement |
+
+----
+
+## Want to Learn More?
+
+- [Prompt Engineering Guide (DAIR.AI)](https://www.promptingguide.ai/) — The most comprehensive prompt engineering resource
+- [Chain-of-Thought Hub (GitHub)](https://github.com/FranxYao/chain-of-thought-hub) — Collection of CoT prompting research
+- [Tree of Thoughts Explained (Yannic Kilcher)](https://www.youtube.com/watch?v=ut5kp56wW_4) — Video walkthrough of ToT with examples
+- [ReAct Pattern (LangChain)](https://python.langchain.com/docs/modules/agents/agent_types/react) — Build your own ReAct agent
+
+----
+
+## Think About It
+
+- "Let's think step by step" dramatically improves LLM performance. Why do you think just adding these words helps so much?
+- Self-Consistency asks the same question many times and picks the majority answer. When might the majority answer still be wrong?
+- ReAct lets LLMs search the web for information. What are the risks if the information found online is wrong or biased?
+- If you could design a new prompting technique, what would it look like? How would you help an LLM solve problems it currently struggles with?

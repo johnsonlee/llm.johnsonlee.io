@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" font-family="sans-serif">
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#aaa"/>
+    </marker>
+  </defs>
+
+  <!-- Input -->
+  <rect x="10" y="100" width="100" height="50" rx="10" fill="#8b5cf6"/>
+  <text x="60" y="120" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">输入</text>
+  <text x="60" y="137" text-anchor="middle" fill="#ddd" font-size="11">“猫 坐 垫”</text>
+
+  <!-- Arrow to Q/K/V split -->
+  <line x1="118" y1="125" x2="148" y2="125" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- Q/K/V Projection box -->
+  <rect x="156" y="60" width="110" height="130" rx="10" fill="#4a9eff"/>
+  <text x="211" y="85" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">线性投影</text>
+  <line x1="170" y1="95" x2="252" y2="95" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="211" y="117" text-anchor="middle" fill="#fff" font-size="14">Q</text>
+  <text x="211" y="117" text-anchor="middle" fill="#fff" font-size="10" dx="-20">(查询)</text>
+  <text x="211" y="140" text-anchor="middle" fill="#fff" font-size="14">K</text>
+  <text x="211" y="140" text-anchor="middle" fill="#fff" font-size="10" dx="-16">(键)</text>
+  <text x="211" y="163" text-anchor="middle" fill="#fff" font-size="14">V</text>
+  <text x="211" y="163" text-anchor="middle" fill="#fff" font-size="10" dx="-16">(值)</text>
+
+  <!-- Arrow to Dot Product -->
+  <line x1="274" y1="125" x2="304" y2="125" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- Dot Product -->
+  <rect x="312" y="85" width="110" height="80" rx="10" fill="#4a9eff"/>
+  <text x="367" y="115" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">点积</text>
+  <text x="367" y="135" text-anchor="middle" fill="#ddd" font-size="12">Q · K&#x1D40;</text>
+  <text x="367" y="153" text-anchor="middle" fill="#ddd" font-size="10">算相关性分数</text>
+
+  <!-- Arrow to Scale -->
+  <line x1="430" y1="125" x2="460" y2="125" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- Scale -->
+  <rect x="468" y="85" width="100" height="80" rx="10" fill="#5dbe8a"/>
+  <text x="518" y="112" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">缩放</text>
+  <text x="518" y="135" text-anchor="middle" fill="#fff" font-size="14">÷ √d</text>
+  <text x="518" y="153" text-anchor="middle" fill="#ddd" font-size="10">防止数值太大</text>
+
+  <!-- Arrow to Softmax -->
+  <line x1="576" y1="125" x2="606" y2="125" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- Softmax -->
+  <rect x="614" y="85" width="100" height="80" rx="10" fill="#e85d5d"/>
+  <text x="664" y="115" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Softmax</text>
+  <text x="664" y="137" text-anchor="middle" fill="#ddd" font-size="11">变成百分比</text>
+  <text x="664" y="153" text-anchor="middle" fill="#ddd" font-size="10">总和 = 100%</text>
+
+  <!-- Arrow to Weighted Sum -->
+  <line x1="722" y1="125" x2="752" y2="125" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- Weighted Sum / Output -->
+  <rect x="760" y="85" width="90" height="80" rx="10" fill="#5dbe8a"/>
+  <text x="805" y="112" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">加权求和</text>
+  <text x="805" y="135" text-anchor="middle" fill="#fff" font-size="13">× V</text>
+  <text x="805" y="153" text-anchor="middle" fill="#ddd" font-size="10">按比例混合</text>
+
+  <!-- Formula bar -->
+  <text x="430" y="220" text-anchor="middle" fill="#aaa" font-size="14" font-weight="bold">Attention(Q, K, V) = softmax(Q·K&#x1D40; / √d) · V</text>
+
+  <!-- Legend -->
+  <rect x="190" y="260" width="16" height="16" rx="3" fill="#8b5cf6"/>
+  <text x="214" y="273" fill="#aaa" font-size="12">数据</text>
+  <rect x="270" y="260" width="16" height="16" rx="3" fill="#4a9eff"/>
+  <text x="294" y="273" fill="#aaa" font-size="12">计算步骤</text>
+  <rect x="390" y="260" width="16" height="16" rx="3" fill="#5dbe8a"/>
+  <text x="414" y="273" fill="#aaa" font-size="12">调整/输出</text>
+  <rect x="510" y="260" width="16" height="16" rx="3" fill="#e85d5d"/>
+  <text x="534" y="273" fill="#aaa" font-size="12">归一化</text>
+
+  <!-- Example numbers -->
+  <text x="430" y="310" text-anchor="middle" fill="#aaa" font-size="13">示例：“猫”对各字的注意力权重</text>
+
+  <rect x="155" y="330" width="70" height="40" rx="8" fill="#4a9eff"/>
+  <text x="190" y="346" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">猫</text>
+  <text x="190" y="362" text-anchor="middle" fill="#ddd" font-size="11">12%</text>
+
+  <rect x="255" y="330" width="70" height="40" rx="8" fill="#e85d5d"/>
+  <text x="290" y="346" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">坐</text>
+  <text x="290" y="362" text-anchor="middle" fill="#ddd" font-size="11">69%</text>
+
+  <rect x="355" y="330" width="70" height="40" rx="8" fill="#4a9eff"/>
+  <text x="390" y="346" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">在</text>
+  <text x="390" y="362" text-anchor="middle" fill="#ddd" font-size="11">8%</text>
+
+  <rect x="455" y="330" width="70" height="40" rx="8" fill="#4a9eff"/>
+  <text x="490" y="346" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">垫</text>
+  <text x="490" y="362" text-anchor="middle" fill="#ddd" font-size="11">7%</text>
+
+  <rect x="555" y="330" width="70" height="40" rx="8" fill="#4a9eff"/>
+  <text x="590" y="346" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">子</text>
+  <text x="590" y="362" text-anchor="middle" fill="#ddd" font-size="11">4%</text>
+
+  <text x="430" y="400" text-anchor="middle" fill="#aaa" font-size="11">“猫”最关注“坐”——因为“猫”想知道自己在干什么</text>
+</svg>

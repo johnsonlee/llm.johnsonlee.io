@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" font-family="sans-serif">
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#aaa"/>
+    </marker>
+  </defs>
+
+  <!-- Input -->
+  <rect x="10" y="100" width="100" height="50" rx="10" fill="#8b5cf6"/>
+  <text x="60" y="120" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Input</text>
+  <text x="60" y="137" text-anchor="middle" fill="#ddd" font-size="11">"cat sat mat"</text>
+
+  <!-- Arrow to Q/K/V split -->
+  <line x1="118" y1="125" x2="148" y2="125" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- Q/K/V Projection box -->
+  <rect x="156" y="60" width="110" height="130" rx="10" fill="#4a9eff"/>
+  <text x="211" y="85" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Linear Projection</text>
+  <line x1="170" y1="95" x2="252" y2="95" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="211" y="117" text-anchor="middle" fill="#fff" font-size="14">Q</text>
+  <text x="211" y="117" text-anchor="middle" fill="#fff" font-size="10" dx="-24">(Query)</text>
+  <text x="211" y="140" text-anchor="middle" fill="#fff" font-size="14">K</text>
+  <text x="211" y="140" text-anchor="middle" fill="#fff" font-size="10" dx="-16">(Key)</text>
+  <text x="211" y="163" text-anchor="middle" fill="#fff" font-size="14">V</text>
+  <text x="211" y="163" text-anchor="middle" fill="#fff" font-size="10" dx="-22">(Value)</text>
+
+  <!-- Arrow to Dot Product -->
+  <line x1="274" y1="125" x2="304" y2="125" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- Dot Product -->
+  <rect x="312" y="85" width="110" height="80" rx="10" fill="#4a9eff"/>
+  <text x="367" y="115" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Dot Product</text>
+  <text x="367" y="135" text-anchor="middle" fill="#ddd" font-size="12">Q · K&#x1D40;</text>
+  <text x="367" y="153" text-anchor="middle" fill="#ddd" font-size="10">relevance scores</text>
+
+  <!-- Arrow to Scale -->
+  <line x1="430" y1="125" x2="460" y2="125" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- Scale -->
+  <rect x="468" y="85" width="100" height="80" rx="10" fill="#5dbe8a"/>
+  <text x="518" y="112" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Scale</text>
+  <text x="518" y="135" text-anchor="middle" fill="#fff" font-size="14">÷ √d</text>
+  <text x="518" y="153" text-anchor="middle" fill="#ddd" font-size="10">prevent overflow</text>
+
+  <!-- Arrow to Softmax -->
+  <line x1="576" y1="125" x2="606" y2="125" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- Softmax -->
+  <rect x="614" y="85" width="100" height="80" rx="10" fill="#e85d5d"/>
+  <text x="664" y="115" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Softmax</text>
+  <text x="664" y="137" text-anchor="middle" fill="#ddd" font-size="11">to percentages</text>
+  <text x="664" y="153" text-anchor="middle" fill="#ddd" font-size="10">sum = 100%</text>
+
+  <!-- Arrow to Weighted Sum -->
+  <line x1="722" y1="125" x2="752" y2="125" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
+
+  <!-- Weighted Sum / Output -->
+  <rect x="760" y="85" width="90" height="80" rx="10" fill="#5dbe8a"/>
+  <text x="805" y="112" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Weighted Sum</text>
+  <text x="805" y="135" text-anchor="middle" fill="#fff" font-size="13">× V</text>
+  <text x="805" y="153" text-anchor="middle" fill="#ddd" font-size="10">blend by weight</text>
+
+  <!-- Formula bar -->
+  <text x="430" y="220" text-anchor="middle" fill="#aaa" font-size="14" font-weight="bold">Attention(Q, K, V) = softmax(Q·K&#x1D40; / √d) · V</text>
+
+  <!-- Legend -->
+  <rect x="190" y="260" width="16" height="16" rx="3" fill="#8b5cf6"/>
+  <text x="214" y="273" fill="#aaa" font-size="12">Data</text>
+  <rect x="270" y="260" width="16" height="16" rx="3" fill="#4a9eff"/>
+  <text x="294" y="273" fill="#aaa" font-size="12">Computation</text>
+  <rect x="400" y="260" width="16" height="16" rx="3" fill="#5dbe8a"/>
+  <text x="424" y="273" fill="#aaa" font-size="12">Scale / Output</text>
+  <rect x="540" y="260" width="16" height="16" rx="3" fill="#e85d5d"/>
+  <text x="564" y="273" fill="#aaa" font-size="12">Normalization</text>
+
+  <!-- Example numbers -->
+  <text x="430" y="310" text-anchor="middle" fill="#aaa" font-size="13">Example: "cat" attention weights to each word</text>
+
+  <rect x="155" y="330" width="70" height="40" rx="8" fill="#4a9eff"/>
+  <text x="190" y="346" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">cat</text>
+  <text x="190" y="362" text-anchor="middle" fill="#ddd" font-size="11">12%</text>
+
+  <rect x="255" y="330" width="70" height="40" rx="8" fill="#e85d5d"/>
+  <text x="290" y="346" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">sat</text>
+  <text x="290" y="362" text-anchor="middle" fill="#ddd" font-size="11">69%</text>
+
+  <rect x="355" y="330" width="70" height="40" rx="8" fill="#4a9eff"/>
+  <text x="390" y="346" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">on</text>
+  <text x="390" y="362" text-anchor="middle" fill="#ddd" font-size="11">8%</text>
+
+  <rect x="455" y="330" width="70" height="40" rx="8" fill="#4a9eff"/>
+  <text x="490" y="346" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">the</text>
+  <text x="490" y="362" text-anchor="middle" fill="#ddd" font-size="11">7%</text>
+
+  <rect x="555" y="330" width="70" height="40" rx="8" fill="#4a9eff"/>
+  <text x="590" y="346" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">mat</text>
+  <text x="590" y="362" text-anchor="middle" fill="#ddd" font-size="11">4%</text>
+
+  <text x="430" y="400" text-anchor="middle" fill="#aaa" font-size="11">"cat" pays most attention to "sat" — it wants to know what it's doing</text>
+</svg>

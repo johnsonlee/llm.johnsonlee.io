@@ -31,6 +31,16 @@ Idea: train the model like you'd raise a child — with **human feedback**!
 
 ----
 
+## The RLHF Pipeline Step by Step
+
+1. **Supervised Fine-Tuning (SFT)**: Show the LLM examples of good answers written by humans
+2. **Reward Model Training**: Humans rank pairs of answers ("A is better than B"). A separate model learns to score answers the way humans would
+3. **RL Optimization**: The LLM generates answers, the reward model scores them, and the LLM adjusts to get higher scores
+
+It's like training a dog: first show it tricks (SFT), then reward good behavior (RL), and it learns to repeat what gets treats!
+
+----
+
 ## Constitutional AI: Can AI teach itself?
 
 Getting human feedback is **expensive and slow**. What if AI could grade itself?
@@ -40,6 +50,20 @@ Getting human feedback is **expensive and slow**. What if AI could grade itself?
 - The AI critiques and revises its own answers based on these rules
 
 > [Constitutional AI](https://arxiv.org/abs/2212.08073) (2022) — AI alignment with principles, not just examples
+
+----
+
+## How Constitutional AI Grades Itself
+
+Imagine a student who checks their own homework:
+
+1. Write an answer
+2. Read the "constitution" (rules like: "Is this helpful? Is it honest? Could it cause harm?")
+3. Critique the answer: "This response might be misleading because..."
+4. Revise the answer based on the critique
+5. Repeat until the answer passes all the rules
+
+The AI becomes its own teacher — much cheaper than hiring thousands of human graders!
 
 ----
 
@@ -54,6 +78,19 @@ DPO found a shortcut:
 - Same result, much simpler to implement!
 
 > [DPO](https://arxiv.org/abs/2305.18290) (2023) — one equation replaces the entire RLHF pipeline
+
+----
+
+## DPO vs RLHF: Simplifying the Pipeline
+
+| | RLHF | DPO |
+|---|---|---|
+| Steps | 3 (SFT → Reward Model → RL) | 1 (direct optimization) |
+| Extra models needed | Yes (reward model) | No |
+| Stability | Tricky to tune | More stable |
+| Results | Great | Comparable |
+
+DPO's insight: you don't need a separate reward model. The language model itself can learn preferences directly from "good vs bad" answer pairs.
 
 ----
 
@@ -105,3 +142,21 @@ Process supervision gives the model much better feedback!
 | [GRPO](https://arxiv.org/abs/2402.03300) / [DAPO](https://arxiv.org/abs/2503.14476) | RL training at scale |
 | [SPIN](https://arxiv.org/abs/2401.01335) (2024) | Self-play → self-improvement |
 | [Step by Step](https://arxiv.org/abs/2305.20050) (2023) | Grade the process, not just the answer |
+
+----
+
+## Want to Learn More?
+
+- [RLHF Explained (Hugging Face)](https://huggingface.co/blog/rlhf) — Step-by-step guide to how RLHF works
+- [Constitutional AI Explained (Anthropic)](https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback) — How AI can supervise itself
+- [DPO Paper Walkthrough (Interconnects)](https://www.interconnects.ai/p/the-dpo-cycle) — Why DPO replaced RLHF in many labs
+- [AI Safety for Kids (80,000 Hours)](https://80000hours.org/problem-profiles/artificial-intelligence/) — Why AI safety matters for the future
+
+----
+
+## Think About It
+
+- If you were writing the "constitution" for an AI, what would your top 3 rules be?
+- RLHF uses human rankings, but humans sometimes disagree. How should an LLM handle a topic where people have very different opinions?
+- Self-play means an LLM plays against itself to improve. Could this ever go wrong? What if it learns tricks that look good but aren't actually helpful?
+- Process supervision grades each step, not just the final answer. Would you prefer a teacher who only marks your final test, or one who checks your homework every day? Why?

@@ -33,6 +33,19 @@ The model doesn't need to memorize everything — it just needs to know how to l
 
 ----
 
+## RAG vs Memorization: Why It Matters
+
+| | Without RAG | With RAG |
+|---|---|---|
+| Knowledge | Only what it memorized during training | Can access any document you provide |
+| Freshness | Frozen at training date | Always up to date |
+| Sources | "Trust me" | "Here's where I found it" |
+| Hallucination | Common | Much less likely |
+
+RAG turns an LLM from a student taking a closed-book exam into one taking an open-book exam — it can look things up instead of guessing from memory.
+
+----
+
 ## How do you search? Embeddings!
 
 But how does the LLM know which passages are relevant?
@@ -44,6 +57,18 @@ But how does the LLM know which passages are relevant?
 We need good benchmarks to test if embeddings are accurate.
 
 > [MTEB](https://arxiv.org/abs/2210.07316) (2022) — the standard benchmark for text embeddings
+
+----
+
+## Embeddings: Turning Words into Coordinates
+
+Imagine each word or sentence is a **point on a map**:
+
+- "I love dogs" → point at (2.1, 3.5, 0.8, ...)
+- "I adore puppies" → point at (2.0, 3.6, 0.9, ...) — very close!
+- "The stock market crashed" → point at (8.7, 1.2, 5.3, ...) — far away
+
+When a question comes in, the LLM converts it to a point, then finds the **nearest** document points. Close points = relevant content!
 
 ----
 
@@ -71,6 +96,17 @@ What if the answer requires combining facts from **multiple documents**?
 - Now it can follow the chain: A → partnered with → C → acquired by → B
 
 > [GraphRAG](https://arxiv.org/abs/2404.16130) (2024) — knowledge graphs + RAG for complex questions
+
+----
+
+## When Simple RAG Isn't Enough
+
+Imagine asking: "How did the merger between Company A and Company B affect their stock prices?"
+
+- **Simple RAG**: Finds a paragraph about Company A and another about Company B — but can't connect the dots
+- **GraphRAG**: Builds a web of connections: Company A → merged with → Company B → stock price → went up 20%
+
+GraphRAG shines when the answer requires **connecting facts across multiple documents** — something simple search can't do.
 
 ----
 
@@ -109,3 +145,21 @@ Understanding **why** models hallucinate is crucial to fixing the problem.
 | [GraphRAG](https://arxiv.org/abs/2404.16130) (2024) | Knowledge graphs for complex questions |
 | [Self-RAG](https://arxiv.org/abs/2310.11511) (2023) | Decide when to search |
 | [Hallucination](https://lilianweng.github.io/posts/2024-07-07-hallucination/) (2024) | Why AI makes things up |
+
+----
+
+## Want to Learn More?
+
+- [What is RAG? (IBM)](https://research.ibm.com/blog/retrieval-augmented-generation-RAG) — Clear introduction to RAG with diagrams
+- [Embeddings Explained (Vicki Boykis)](https://vickiboykis.com/what_are_embeddings/) — Deep dive into how text becomes numbers
+- [GraphRAG Explained (Microsoft)](https://microsoft.github.io/graphrag/) — Microsoft's guide to graph-based retrieval
+- [RAG From Scratch (LangChain)](https://www.youtube.com/watch?v=sVcwVQRHIc8) — Build a RAG system step by step (video)
+
+----
+
+## Think About It
+
+- RAG lets an LLM "look things up." But how do you know the documents it's looking at are trustworthy? What if someone puts wrong information in the knowledge base?
+- Embeddings put "dog" and "puppy" close together. Can you think of words that *look* similar but mean very different things? How might this confuse a search?
+- GraphRAG connects facts from different documents. Can you think of a question from your schoolwork that would need information from multiple sources to answer?
+- Even with RAG, LLMs sometimes hallucinate. If you were building an AI assistant for a hospital, how would you make sure it doesn't make things up?

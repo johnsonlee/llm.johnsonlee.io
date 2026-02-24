@@ -31,6 +31,18 @@ You can actually **predict** how good a model will be before training it!
 
 ----
 
+## Scaling Laws in Everyday Life
+
+Scaling laws work like learning a musical instrument:
+
+- **First week**: Huge improvement — you go from noise to simple tunes
+- **First month**: Good progress — you can play real songs
+- **First year**: Slower improvement — you're getting better, but each hour of practice adds less
+
+LLMs follow the same pattern. Doubling the size doesn't double the performance — but the improvement is **predictable**, and that's the breakthrough.
+
+----
+
 ## But wait — the recipe was wrong!
 
 The original recipe said: **spend most of your budget on a bigger model**.
@@ -45,6 +57,17 @@ A team at DeepMind found the opposite:
 
 ----
 
+## The Chinchilla Recipe
+
+Think of training an LLM like baking a cake:
+
+- **Old recipe (Kaplan)**: Use a HUGE oven (big model) with a small amount of batter (less data)
+- **Chinchilla recipe**: Use a medium oven with the RIGHT amount of batter
+
+The key insight: for every dollar you spend, split it roughly **equally** between making the model bigger and feeding it more data. Most labs were spending too much on model size and not enough on data.
+
+----
+
 ## Emergent Abilities: Unexpected Skills
 
 Something weird happens when models get really big:
@@ -54,6 +77,16 @@ Something weird happens when models get really big:
 - These are called **emergent abilities** — they weren't explicitly taught
 
 > [Emergent Abilities](https://arxiv.org/abs/2206.07682) (2022) — new abilities that appear at scale
+
+----
+
+## Why Emergence Is Surprising
+
+Imagine teaching a child to add numbers. They practice 1+1, 2+3, 5+7...
+
+Then one day you ask: "What's 1,247 + 3,856?" and they get it right — even though you never taught them numbers that big!
+
+That's emergence: the LLM learns basic patterns, and at some point, those patterns combine into entirely new abilities that nobody explicitly programmed.
 
 ----
 
@@ -90,3 +123,21 @@ The internet is big, but it's not infinite. What happens when models need **more
 | [Emergent Abilities](https://arxiv.org/abs/2206.07682) (2022) | New abilities appear suddenly at scale |
 | [Mirage?](https://arxiv.org/abs/2304.15004) (2023) | Maybe it's the metric, not the model |
 | [Data-Constrained](https://arxiv.org/abs/2305.16264) (2023) | Strategies for when data runs out |
+
+----
+
+## Want to Learn More?
+
+- [Chinchilla's Wild Implications (nostalgebraist)](https://www.lesswrong.com/posts/6Fpvch8RR29qLEWNH/chinchilla-s-wild-implications) — What Chinchilla means for the future of AI scaling
+- [Emergent Abilities Explained (AI Explained)](https://www.youtube.com/watch?v=dDUC-LqVrPU) — Video walkthrough of emergent abilities with examples
+- [The Scaling Hypothesis (Gwern)](https://gwern.net/scaling-hypothesis) — Deep dive into why bigger might be better
+- [Are Emergent Abilities a Mirage? (Yannic Kilcher)](https://www.youtube.com/watch?v=hQQUkbJHJg4) — Video explaining the debate
+
+----
+
+## Think About It
+
+- If you had $10 million to train an LLM, would you build a bigger model or get more data? Why?
+- Emergent abilities appear "suddenly." Can you think of something in your own learning that felt like a sudden breakthrough after lots of practice?
+- The internet has a limited amount of text. What would you do if you needed more training data than exists?
+- If the "mirage" paper is right and emergence is just a measurement trick, does that make LLMs less impressive? Why or why not?

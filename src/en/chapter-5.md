@@ -32,6 +32,17 @@ Same exact result, but **2-4x faster** and uses much less memory!
 
 ----
 
+## Why Memory Speed Matters So Much
+
+Think of your GPU like a kitchen:
+
+- **Fast memory (SRAM)** = the countertop — small, but everything is within arm's reach
+- **Slow memory (HBM)** = the fridge — lots of space, but you have to walk to it every time
+
+Standard Attention keeps running to the fridge for every ingredient. FlashAttention reorganizes the recipe so you grab everything you need from the fridge once, do all the work on the countertop, then put results back. Same dish, way less walking!
+
+----
+
 ## GQA: Sharing is caring
 
 In standard Attention, each "attention head" keeps its own notebook of what it has seen.
@@ -43,6 +54,19 @@ With 32 heads, that's 32 copies of memory — very wasteful!
 - Almost no loss in quality!
 
 > [GQA](https://arxiv.org/abs/2305.13245) (2023) — used in Llama 2, Mistral, and almost every modern LLM
+
+----
+
+## GQA: Before and After
+
+| | Multi-Head | Grouped-Query (GQA) |
+|---|---|---|
+| Heads | 32 | 32 |
+| Key-Value copies | 32 | 8 |
+| Memory per token | 100% | ~25% |
+| Quality | Baseline | Almost identical |
+
+By sharing Key-Value caches across groups of heads, GQA cuts memory by 4x with almost no quality loss. That's why nearly every modern LLM — Llama 2, Mistral, Gemma — uses it.
 
 ----
 
@@ -69,6 +93,19 @@ What if there's a completely different approach?
 - Mamba adds **selectivity** — it can choose what to remember and what to forget
 
 > [Mamba](https://arxiv.org/abs/2312.00752) (2023) — challenging the Transformer's dominance
+
+----
+
+## Transformers vs Mamba: A Trade-off
+
+| | Transformer | Mamba (SSM) |
+|---|---|---|
+| Speed on long text | Slow (quadratic) | Fast (linear) |
+| Quality on short text | Excellent | Good |
+| Memory use | High | Low |
+| Maturity | Battle-tested | Still proving itself |
+
+The latest research combines both: use Transformer layers for complex reasoning and Mamba layers for fast processing. Some hybrid models get the best of both worlds!
 
 ----
 
@@ -107,3 +144,21 @@ BERT changed the world in 2018, but the world moved on. Could we rebuild it with
 | [Mamba](https://arxiv.org/abs/2312.00752) (2023) | Linear-time alternative to Attention |
 | [Ring Attention](https://arxiv.org/abs/2310.01889) (2023) | Split long text across multiple GPUs |
 | [ModernBERT](https://arxiv.org/abs/2412.13663) (2024) | Classic BERT rebuilt with modern tricks |
+
+----
+
+## Want to Learn More?
+
+- [ELI5: FlashAttention (Aleksa Gordić)](https://gordicaleksa.medium.com/eli5-flash-attention-5c44017022ad) — FlashAttention explained simply with diagrams
+- [The Annotated Mamba (srush)](https://srush.github.io/annotated-mamba/hard.html) — Walk through Mamba's code step by step
+- [Rotary Position Embedding (blog)](https://blog.eleuther.ai/rotary-embeddings/) — Deep dive into how RoPE works
+- [Visual Guide to Attention (Lilian Weng)](https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/) — Comprehensive overview of all attention variants
+
+----
+
+## Think About It
+
+- FlashAttention doesn't change the math — just how data moves in memory. Can you think of other situations where *how* you organize work matters more than *what* work you do?
+- Attention grows quadratically: 2x longer text = 4x more work. If a model handles 10,000 words in 1 second, how long would 100,000 words take?
+- Mamba processes text in one direction, while Attention looks everywhere. What kinds of tasks might Mamba struggle with compared to Attention?
+- ModernBERT rebuilt a 2018 model with 2024 tricks. What if you rebuilt something old with today's technology — what would you modernize?

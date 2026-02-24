@@ -30,6 +30,18 @@ Meta released LLaMA — models from 7B to 65B parameters, trained on **public da
 
 ----
 
+## Why Open Source Matters
+
+Before LLaMA, studying LLMs was like studying a locked treasure chest:
+
+- You could **use** GPT-3 through an API, but couldn't see inside
+- You couldn't study **why** it made mistakes
+- You couldn't **customize** it for your own needs
+
+LLaMA gave researchers the key. Within weeks, people built medical assistants, coding helpers, and language tutors — all from this one open model.
+
+----
+
 ## Llama 2 & 3: Getting better and safer
 
 Meta kept improving:
@@ -67,6 +79,19 @@ When you do math, you don't use the part of your brain for music. What if AI wor
 
 ----
 
+## How Mixture of Experts Works
+
+Imagine a hospital with specialist doctors:
+
+1. A patient arrives → the receptionist (called the **router**) looks at the symptoms
+2. The router sends them to the right specialists — maybe a heart doctor and a lung doctor
+3. Only these 2 doctors work on this case; the other 6 specialists rest
+4. Next patient might need entirely different specialists
+
+That's MoE! The router decides which 2 of 8 experts handle each piece of text. Total knowledge: 47 billion parameters. Active per task: only 13 billion.
+
+----
+
 ## DeepSeek: Efficiency at extreme scale
 
 A Chinese lab pushed efficiency to the extreme:
@@ -76,6 +101,19 @@ A Chinese lab pushed efficiency to the extreme:
 - **DeepSeek-R1**: Trained with pure reinforcement learning — the model taught **itself** to reason!
 
 > [DeepSeek-V2](https://arxiv.org/abs/2405.04434) | [V3](https://arxiv.org/abs/2412.19437) | [R1](https://arxiv.org/abs/2501.12948) (2024-2025)
+
+----
+
+## DeepSeek-R1: Teaching Itself to Reason
+
+Most models learn reasoning from human-written examples. DeepSeek-R1 did something different:
+
+- Start with a base model that has **no** reasoning training
+- Give it math problems and reward it when it gets the right answer
+- The model **invented its own** reasoning strategies through trial and error!
+- It discovered techniques like "let me check my work" and "let me try a different approach" — all on its own
+
+This showed that reasoning can **emerge** from pure reinforcement learning.
 
 ----
 
@@ -100,3 +138,21 @@ A Chinese lab pushed efficiency to the extreme:
 | [Mixtral](https://arxiv.org/abs/2401.04088) (2024) | Mixture of Experts — only activate what you need |
 | [DeepSeek series](https://arxiv.org/abs/2501.12948) (2024-25) | Extreme efficiency, self-taught reasoning |
 | [Qwen3](https://arxiv.org/abs/2505.09388) / [Gemma 2](https://arxiv.org/abs/2408.00118) | Global open-source ecosystem |
+
+----
+
+## Want to Learn More?
+
+- [The LLaMA Story (Weights & Biases)](https://wandb.ai/ayush-thakur/llama-2/reports/All-About-Llama-2--Vmlldzo0OTk0NjQ2) — How LLaMA changed the AI landscape
+- [Mixture of Experts Explained (Hugging Face)](https://huggingface.co/blog/moe) — Visual guide to how MoE works
+- [DeepSeek-R1 Explained (AI Explained)](https://www.youtube.com/watch?v=bAWV_yrqx1A) — How a model taught itself to reason
+- [Open Source AI Timeline](https://lifearchitect.ai/models-table/) — Track every open-source model release
+
+----
+
+## Think About It
+
+- Why would a company like Meta give away a model that cost millions to train? What do they gain from open source?
+- Mixtral uses 8 experts but only activates 2 at a time. What might go wrong if the router always picks the same 2 experts?
+- DeepSeek-R1 taught itself to reason through pure RL. Do you think an LLM could teach itself other skills this way — like creativity or humor?
+- If you could download and customize any LLM for free, what would you build with it?

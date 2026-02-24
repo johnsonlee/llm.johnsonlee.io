@@ -33,6 +33,21 @@ GPTQ rounds all 175 billion numbers — making the whole model 4 times smaller!
 
 ----
 
+## How Much Quality Do We Lose?
+
+Surprisingly little! Here's a comparison:
+
+| Precision | Model Size | Quality (vs original) |
+|-----------|-----------|----------------------|
+| 16-bit (original) | 350 GB | 100% |
+| 8-bit | 175 GB | ~99% |
+| 4-bit (GPTQ) | 88 GB | ~97% |
+| 3-bit | 66 GB | ~93% |
+
+Going from 16-bit to 4-bit makes the model **4x smaller** while keeping 97% of its intelligence. That's like compressing a movie from Blu-ray to streaming quality — you barely notice the difference!
+
+----
+
 ## AWQ: Not all weights are equal
 
 GPTQ treats every parameter the same. But some parameters are **more important**!
@@ -57,6 +72,22 @@ Making the model smaller helps, but when **thousands of users** ask questions at
 
 ----
 
+## PagedAttention: Why It's a Big Deal
+
+Without PagedAttention, serving LLMs wastes a lot of memory:
+
+- Each user's conversation reserves a fixed block of memory — even if most of it is empty
+- Like reserving a whole restaurant table for one person
+
+With PagedAttention:
+- Memory is divided into small **pages** (like pages in a book)
+- Each conversation only uses exactly as many pages as it needs
+- Pages can be shared between similar conversations!
+
+Result: **2-4x more users** can be served with the same hardware.
+
+----
+
 ## Speculative Decoding: A clever shortcut
 
 Generating text is slow because each word depends on the previous one.
@@ -69,6 +100,17 @@ What if we used a **small, fast model** to guess several words ahead?
 4. If a guess is wrong → fix it and continue
 
 > [Speculative Decoding](https://arxiv.org/abs/2211.17192) (2022) — draft fast, verify in bulk
+
+----
+
+## Speculative Decoding: A Real-World Analogy
+
+Think of a boss and an assistant writing a report:
+
+- **Without speculation**: Boss dictates every word. Assistant writes one word, waits, writes the next. Slow!
+- **With speculation**: Assistant drafts several paragraphs. Boss quickly scans and approves most of them, fixing only the mistakes. Much faster!
+
+The small "assistant" model is 10-100x faster than the big "boss" model. When the assistant guesses correctly (which happens ~70-80% of the time), we skip all that slow generation!
 
 ----
 
@@ -95,3 +137,21 @@ Like a chess player thinking several moves ahead!
 | [vLLM](https://arxiv.org/abs/2309.06180) (2023) | Paged memory for serving thousands of users |
 | [Speculative Decoding](https://arxiv.org/abs/2211.17192) (2022) | Small model drafts, big model verifies |
 | [Medusa](https://arxiv.org/abs/2401.10774) (2024) | Predict multiple words at once |
+
+----
+
+## Want to Learn More?
+
+- [A Visual Guide to Quantization (Maarten Grootendorst)](https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-quantization) — Beautiful visual explanation of quantization
+- [vLLM: Easy and Fast LLM Serving (blog)](https://blog.vllm.ai/) — How PagedAttention works under the hood
+- [Running LLMs Locally (Ollama)](https://ollama.com/) — Try running a quantized model on your own computer
+- [Speculative Decoding Explained (Hugging Face)](https://huggingface.co/blog/whisper-speculative-decoding) — How draft-and-verify speeds up generation
+
+----
+
+## Think About It
+
+- Quantization is like rounding numbers — 3.14159 becomes 3.1. Can you think of other situations where "close enough" is good enough? Where would rounding be dangerous?
+- vLLM's PagedAttention borrows ideas from how operating systems manage computer memory. What other ideas from computer science could help make LLMs faster?
+- Speculative Decoding uses a small model to guess what a big model would say. What happens if the small model is really bad at guessing? Would it still help?
+- If quantization makes a 350 GB model fit into 88 GB, what new devices could run LLMs that couldn't before? What would that enable?
