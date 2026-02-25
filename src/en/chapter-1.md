@@ -134,7 +134,7 @@ After reading millions of sentences, the LLM notices:
 
 <!-- .slide: class="center" -->
 
-## What if the LLM could look at every word at the same time?
+## What if the LLM could look at every token at the same time?
 
 ----
 
@@ -142,10 +142,10 @@ After reading millions of sentences, the LLM notices:
 
 That's exactly what **Attention** does!
 
-- For each word, the LLM asks: *"Which other words are important to me?"*
+- For each token, the LLM asks: *"Which other tokens are important to me?"*
 - "sat" looks at "cat" → *who is sitting?*
 - "sat" looks at "mat" → *where?*
-- All words are processed **in parallel**, not one by one
+- All tokens are processed **in parallel**, not one by one
 
 > This idea is from [Attention Is All You Need](https://arxiv.org/abs/1706.03762) (2017) — the paper that introduced the **Transformer**
 
@@ -153,29 +153,29 @@ That's exactly what **Attention** does!
 
 ## How Attention Actually Works
 
-Every word creates three things:
+Every token creates three things:
 
 1. A **Query** — "What am I looking for?"
 2. A **Key** — "Here's what I can offer"
 3. A **Value** — "Here's the actual information I carry"
 
-The LLM matches each Query against all Keys to find the most relevant words, then combines their Values. It's like raising your hand in class (Query), checking everyone's name tag (Key), and then listening to the right person's answer (Value).
+The LLM matches each Query against all Keys to find the most relevant tokens, then combines their Values. It's like raising your hand in class (Query), checking everyone's name tag (Key), and then listening to the right person's answer (Value).
 
 ----
 
 ## What Do Q, K, V Look Like?
 
-Imagine each word has a "report card" with scores for different aspects of meaning.
+Earlier we learned that each token's embedding is a list of d numbers. The LLM uses three different sets of weights to turn the same embedding into three "report cards":
 
-- **Q (Query)** = a report card for "what kind of partner am I looking for"
-- **K (Key)** = a report card for "what I can offer"
-- How many traits are on the card? That's called the **dimension d**
+- **Q (Query)** — d numbers: "What kind of partner am I looking for?"
+- **K (Key)** — d numbers: "What can I offer?"
+- **V (Value)** — d numbers: "The actual content I carry"
 
-Real LLMs use d=512; we'll simplify to **d=4** — the 4 traits are: who's doing it, what's happening, where, and what thing.
+**Division of labor**: Q and K handle matching ("who should I attend to?"), V is the content that gets mixed. We'll simplify to **d=4** — the 4 traits are: who's doing it, what's happening, where, and what thing.
 
 ----
 
-## Each Word as a "Report Card"
+## Each Token as a "Report Card"
 
 | | Who | What | Where | Which thing |
 |---|---|---|---|---|
@@ -194,7 +194,7 @@ What do these numbers mean? Let's find out on the next slide.
 - **sat K** is all 1s: "sat" is a verb full of info — action, subject, location — a **great match** with cat!
 - **mat K** only has "which thing" = 1: "mat" mainly tells us about an object — a **weak match**
 
-> Note: these numbers are simplified for teaching. In a real LLM, every word's Q and K are **learned automatically** during training.
+> Note: these numbers are simplified for teaching. In a real LLM, every token's Q, K, and V are **learned automatically** during training.
 
 How do we calculate "how well they match" with math?
 
@@ -204,7 +204,7 @@ How do we calculate "how well they match" with math?
 
 The method is called the **dot product** — multiply each matching trait, then add them all up.
 
-Think of it like matching friends: the more interests you share (high scores on the same traits), the bigger the total — better match! Let's see how well "cat" matches each word:
+Think of it like matching friends: the more interests you share (high scores on the same traits), the bigger the total — better match! Let's see how well "cat" matches each token:
 
 - cat Q · cat K = 1×1 + 1×0 + 1×0 + 1×0 = **1** — so-so
 - cat Q · sat K = 1×1 + 1×1 + 1×1 + 1×1 = **4** — great match!
@@ -216,7 +216,7 @@ Think of it like matching friends: the more interests you share (high scores on 
 
 ## From Scores to Percentages
 
-Previous step gave relevance scores [1, 4, 1]. How do we turn these into a final result?
+Previous step used Q and K to get relevance scores [1, 4, 1]. How do we turn these into "who to attend to" percentages?
 
 **Step 1: Shrink the scores** — scores ÷ 2 → [0.5, 2.0, 0.5]
 Scores that are too big cause problems (we'll explain why later) — so we "cool them down" first
@@ -224,9 +224,23 @@ Scores that are too big cause problems (we'll explain why later) — so we "cool
 **Step 2: Draw a pie chart (Softmax)** → **[15%, 69%, 15%]**
 Convert scores into percentages — like drawing a pie chart where all slices add up to exactly 100%
 
-**Step 3: Mix by percentage** → new "cat" = 15%×cat + **69%×sat** + 15%×mat
+Q and K's job is done — they've calculated that "cat" should pay 69% attention to "sat" and 15% each to "cat" and "mat." Now it's V's turn!
 
-Result: "cat"'s new representation is 69% "sat" — because "cat" most wants to know what it's doing!
+----
+
+## Mixing with V: The Final Result
+
+Q and K figured out "who to attend to." Now we use V to mix each token's **actual content**:
+
+| | Who | What | Where | Which thing |
+|---|---|---|---|---|
+| cat V | 1 | 0 | 0 | 0 |
+| sat V | 0 | 1 | 0 | 0 |
+| mat V | 0 | 0 | 1 | 1 |
+
+new "cat" = 15%×catV + **69%×satV** + 15%×matV = [0.15, **0.69**, 0.15, 0.15]
+
+"cat" now knows 69% about "what's happening" — because it got the most information from "sat"!
 
 ----
 
@@ -256,7 +270,7 @@ With d=4 the scores were small. But real LLMs use d=512, and dot product scores 
 | No scaling (d=512) | 12 | **98** | 15 |
 | After pie chart | ≈0% | **≈100%** | ≈0% |
 
-The pie chart is almost entirely "sat"! All other words are ignored — the LLM becomes "only look at one word."
+The pie chart is almost entirely "sat"! All other tokens are ignored — the LLM becomes "only look at one token."
 
 ----
 
@@ -323,14 +337,14 @@ Together, the LLM understands grammar, position, AND meaning simultaneously — 
 
 ----
 
-## But wait — what about word order?
+## But wait — what about token order?
 
-"Dog bites man" and "Man bites dog" have the same words but very different meanings!
+"Dog bites man" and "Man bites dog" have the same tokens but very different meanings!
 
-- Since Attention looks at all words at once, it doesn't know which word comes first
-- Solution: **Positional Encoding** — give each word a "seat number"
+- Since Attention looks at all tokens at once, it doesn't know which token comes first
+- Solution: **Positional Encoding** — give each token a "seat number"
 
-> Word 1: "Dog" (seat #1) → Word 2: "bites" (seat #2) → Word 3: "man" (seat #3)
+> Token 1: "Dog" (seat #1) → Token 2: "bites" (seat #2) → Token 3: "man" (seat #3)
 
 Now the LLM knows both the meaning AND the order.
 
@@ -374,10 +388,10 @@ Could we just use simple numbering (1, 2, 3...)?
 
 Now that we know Attention, Multi-Head Attention, and Positional Encoding, let's see what a full Transformer layer contains:
 
-1. **Multi-Head Attention**: Every word scans all others with multiple pairs of eyes, capturing different relationships
-2. **Feed-Forward Network**: Every word independently "thinks" about the clues it collected, updating its understanding
+1. **Multi-Head Attention**: Every token scans all others with multiple pairs of eyes, capturing different relationships
+2. **Feed-Forward Network**: Every token independently "thinks" about the clues it collected, updating its understanding
 
-There's also a **shortcut connection**: the word keeps its understanding from the previous layer. Even if one layer doesn't learn anything new, nothing is lost.
+There's also a **shortcut connection**: the token keeps its understanding from the previous layer. Even if one layer doesn't learn anything new, nothing is lost.
 
 Each layer = observe → think → move on with deeper understanding.
 
@@ -417,16 +431,16 @@ Shortcut connections solve the signal loss problem, but there's another issue: n
 
 ----
 
-## Same Word, Layer by Layer
+## Same Token, Layer by Layer
 
-Take the word "apple" and watch it transform through the layers:
+Take the token "apple" and watch it transform through the layers:
 
 - **At input**: Just a symbol — the LLM doesn't know what it means yet
 - **After early layers**: Surrounding words give clues — "apple" is related to "eating" or "company"
 - **"I ate an apple"** → after deep layers: round, red, sweet — a fruit
 - **"Apple released a new phone"** → after deep layers: tech company, iPhone, Tim Cook
 
-Same word, completely different final understanding — that's the power of 12, 24, or even 96 layers of "transformation."
+Same token, completely different final understanding — that's the power of 12, 24, or even 96 layers of "transformation."
 
 ----
 
@@ -627,7 +641,7 @@ All the vector spaces, dot products, matrix multiplications, softmax — togethe
 
 | Paper | Key Idea |
 |-------|----------|
-| [Attention Is All You Need](https://arxiv.org/abs/1706.03762) (2017) | Look at all words at once — the Transformer |
+| [Attention Is All You Need](https://arxiv.org/abs/1706.03762) (2017) | Look at all tokens at once — the Transformer |
 | [BERT](https://arxiv.org/abs/1810.04805) (2018) | Fill in blanks → understand text |
 | [GPT-1](https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf) (2018) | Predict next word → generate text |
 | [T5](https://arxiv.org/abs/1910.10683) (2019) | Every task = text in → text out |
