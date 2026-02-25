@@ -22,12 +22,12 @@
   <path d="M105,325 C175,235 270,130 390,88 C500,58 620,52 720,49"
         stroke="#4a9eff" stroke-width="3.5" fill="none" stroke-linecap="round"/>
 
-  <!-- Green annotation: fast improvement -->
-  <text x="220" y="200" fill="#5dbe8a" font-size="15" font-weight="bold">Fast improvement!</text>
-  <line x1="210" y1="208" x2="172" y2="248" stroke="#5dbe8a" stroke-width="1.5" stroke-dasharray="4"/>
+  <!-- Green annotation: fast improvement (text below curve in empty space) -->
+  <text x="250" y="280" fill="#5dbe8a" font-size="15" font-weight="bold">Fast improvement!</text>
+  <line x1="248" y1="267" x2="218" y2="225" stroke="#5dbe8a" stroke-width="1.5" stroke-dasharray="4"/>
 
-  <!-- Red annotation: diminishing returns -->
-  <text x="485" y="115" fill="#e85d5d" font-size="14" font-weight="bold">Doubling cost,</text>
-  <text x="485" y="135" fill="#e85d5d" font-size="14" font-weight="bold">little improvement</text>
-  <line x1="540" y1="143" x2="568" y2="70" stroke="#e85d5d" stroke-width="1.5" stroke-dasharray="4"/>
+  <!-- Red annotation: diminishing returns (text below flat section, line goes up) -->
+  <text x="530" y="150" fill="#e85d5d" font-size="14" font-weight="bold">Doubling cost,</text>
+  <text x="530" y="170" fill="#e85d5d" font-size="14" font-weight="bold">little improvement</text>
+  <line x1="555" y1="137" x2="568" y2="80" stroke="#e85d5d" stroke-width="1.5" stroke-dasharray="4"/>
 </svg>
