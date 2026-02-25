@@ -34,7 +34,7 @@ for line in lines:
     # Protect HTML attribute quotes: find all attr=”value” spans
     # and mark their positions as protected
     protected = set()
-    for m in re.finditer(r'=\s*\”[^\”]*\”', line):
+    for m in re.finditer(r'[a-zA-Z-]=\”[^\”]*\”', line):
         for pos in range(m.start(), m.end()):
             protected.add(pos)
     result, q = [], False

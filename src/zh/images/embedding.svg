@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 230" font-family="sans-serif">
+  <!-- Left panel: Embedding lookup -->
+  <!-- Row 1: 猫 -->
+  <rect x="20" y="22" width="60" height="36" rx="8" fill="#8b5cf6"/>
+  <text x="50" y="46" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">猫</text>
+  <line x1="88" y1="40" x2="118" y2="40" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="126" y="22" width="200" height="36" rx="8" fill="#4a9eff"/>
+  <text x="226" y="46" text-anchor="middle" fill="#fff" font-size="13">[0.8, 0.3, 0.1, 0.9]</text>
+
+  <!-- Row 2: 狗 -->
+  <rect x="20" y="87" width="60" height="36" rx="8" fill="#8b5cf6"/>
+  <text x="50" y="111" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">狗</text>
+  <line x1="88" y1="105" x2="118" y2="105" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="126" y="87" width="200" height="36" rx="8" fill="#4a9eff"/>
+  <text x="226" y="111" text-anchor="middle" fill="#fff" font-size="13">[0.7, 0.4, 0.2, 0.8]</text>
+
+  <!-- Row 3: 桌子 -->
+  <rect x="20" y="152" width="60" height="36" rx="8" fill="#8b5cf6"/>
+  <text x="50" y="176" text-anchor="middle" fill="#fff" font-size="14" font-weight="bold">桌子</text>
+  <line x1="88" y1="170" x2="118" y2="170" stroke="#aaa" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="126" y="152" width="200" height="36" rx="8" fill="#4a9eff"/>
+  <text x="226" y="176" text-anchor="middle" fill="#fff" font-size="13">[0.1, 0.9, 0.7, 0.2]</text>
+
+  <!-- Separator -->
+  <line x1="365" y1="10" x2="365" y2="220" stroke="#555" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Right panel: Vector space -->
+  <text x="590" y="22" text-anchor="middle" fill="#ddd" font-size="13">含义相近 → 向量相近</text>
+
+  <circle cx="460" cy="75" r="8" fill="#8b5cf6"/>
+  <text x="460" y="63" text-anchor="middle" fill="#ddd" font-size="12">猫</text>
+
+  <circle cx="500" cy="108" r="8" fill="#8b5cf6"/>
+  <text x="518" y="108" fill="#ddd" font-size="12">狗</text>
+
+  <circle cx="700" cy="185" r="8" fill="#8b5cf6"/>
+  <text x="700" y="173" text-anchor="middle" fill="#ddd" font-size="12">桌子</text>
+
+  <!-- Distance: cat ↔ dog (close, green) -->
+  <line x1="465" y1="81" x2="495" y2="102" stroke="#5dbe8a" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="495" y="82" fill="#5dbe8a" font-size="12" font-weight="bold">近！</text>
+
+  <!-- Distance: cat ↔ table (far, red) -->
+  <line x1="466" y1="81" x2="694" y2="180" stroke="#e85d5d" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="590" y="122" fill="#e85d5d" font-size="12" font-weight="bold">远</text>
+
+  <defs><marker id="a" markerWidth="10" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 Z" fill="#aaa"/></marker></defs>
+</svg>

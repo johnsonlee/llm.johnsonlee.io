@@ -52,6 +52,33 @@ The tokenizer splits text into small pieces called **tokens**:
 
 ----
 
+## How Is the Tokenizer Trained?
+
+The most common method is called **Byte Pair Encoding (BPE)** — the core idea is like building a puzzle, repeatedly merging the most frequent adjacent pair into one new piece:
+
+1. Start with only the smallest units in the vocabulary (single letters or single characters)
+2. Scan the training data and find the most frequent adjacent pair, e.g. "t" and "h"
+3. Merge them into "th" and add it to the vocabulary
+4. Keep merging: "th" + "e" → "the", "i" + "ng" → "ing" ...
+5. Stop when the vocabulary reaches a preset size (e.g. 50,000)
+
+> Tokenizer training is completed **before** LLM training begins. Once the vocabulary is fixed, all text is split using the same vocabulary.
+
+----
+
+## Why "Byte Pair"? Does It Work for Chinese?
+
+**Why "Byte Pair":** The algorithm was originally invented in 1994 for data compression, merging the most frequent adjacent byte pairs — hence the name. When NLP (Natural Language Processing) borrowed it, the operands changed from bytes to characters/subwords, but the name stuck.
+
+**Does Chinese use BPE too?** Yes! Mainstream LLMs (GPT, LLaMA, etc.) use BPE for Chinese too — only the starting point differs:
+
+- **English**: starts by merging single letters a, b, c
+- **Chinese**: starts by merging single characters (or UTF-8 bytes) — "喜" + "欢" → "喜欢"
+
+The merging logic is exactly the same: find the most frequent adjacent pair, merge, repeat.
+
+----
+
 ## Why Is It Called "Transformer"?
 
 ![Transformer layer-by-layer transformation](src/en/images/transformer-layers.svg)
@@ -62,71 +89,46 @@ The tokenizer splits text into small pieces called **tokens**:
 
 Every Transformer layer runs on math — but words aren't numbers. How does an LLM "see" text?
 
-- Each token gets a **number vector** — a list of numbers representing its meaning
-- This "token → number vector" conversion is called **embedding**
+- Each token gets **a list of numbers** representing its meaning — this list is called a **vector**, which is just a fancy word for "numbers in a row"
+- This "token → vector" conversion is called **embedding**
 - Words with similar meanings get similar vectors — "cat" and "dog" are closer than "cat" and "table"
 
-> Embedding is the LLM's "dictionary": look up a token, get its number representation.
+> Embedding is the LLM's "dictionary": look up a token, get its vector.
 
 ----
 
-## What's Inside Each Layer?
+## What Does Embedding Look Like?
 
-Each layer has two key steps:
-
-1. **Look (Attention)**: Every word scans all other words, collecting clues — "Who's related to me?"
-2. **Think (Feed-Forward Network)**: Every word processes the clues it just collected, updating its understanding
-
-There's also a **shortcut connection**: the word keeps its understanding from the previous layer. Even if one layer doesn't learn anything new, nothing is lost.
-
-Each layer = observe → think → move on with deeper understanding.
+![Embedding Visualization](src/en/images/embedding.svg)
 
 ----
 
-## Why Do Shortcut Connections Matter?
+## How Long Is a Vector?
 
-Imagine 96 people in a line playing telephone — by the end, the message is garbled beyond recognition.
+Our diagram uses only 4 numbers per vector, but real LLMs use much longer ones:
 
-This is the **vanishing gradient** problem: signals get weaker and weaker through many layers, so the LLM can't learn.
+| LLM | Vector length (dimension d) |
+|---|---|
+| BERT-base | 768 |
+| GPT-2 | 1,024 |
+| GPT-3 | 12,288 |
 
-How do we fix this?
+The length of this number list is called the **dimension d**, and it's **chosen by the model designer** — higher dimensions can express richer meaning, like using more subjects on a report card to paint a fuller picture of a student.
 
-----
-
-## The Shortcut Connection Fix
-
-> output = layer(x) + x
-
-- Each layer passes a **copy of the original input** straight to its output
-- Even if one layer learns nothing useful (layer(x) ≈ 0), the original information survives
-- It's like playing telephone while also texting the original message — the truth always gets through
+> The d-dimensional space exists before training, but starts out empty; training is the process of arranging every token into a meaningful position.
 
 ----
 
-## Layer Normalization
+## Where Do These Numbers Come From?
 
-Shortcut connections solve the signal loss problem, but there's another issue: numbers can become **wildly different in size** after many layers, making the LLM "dizzy."
+At the start, every token's vector is **random**. During training, the LLM reads sentences, guesses words, and learns from mistakes — gradually tuning the vectors.
 
-**Layer normalization** is like recalibrating after each layer:
+After reading millions of sentences, the LLM notices:
 
-- Rescale all numbers back to a **consistent range**
-- The relative order stays the same — only the scale gets tidied up
-- Like converting raw test scores to percentages — easier to compare and work with
+- "I fed the ___ fish" / "I fed the ___ meat" — both "cat" and "dog" fit → vectors get pulled closer
+- "I wiped the ___ clean" — only "table" fits, not "cat" or "dog" → vectors stay far apart
 
-> Shortcut connection + layer normalization together form the green "Residual Connection + Layer Norm" blocks in the Transformer architecture diagram.
-
-----
-
-## Same Word, Layer by Layer
-
-Take the word "apple" and watch it transform through the layers:
-
-- **At input**: Just a symbol — the LLM doesn't know what it means yet
-- **After early layers**: Surrounding words give clues — "apple" is related to "eating" or "company"
-- **"I ate an apple"** → after deep layers: round, red, sweet — a fruit
-- **"Apple released a new phone"** → after deep layers: tech company, iPhone, Tim Cook
-
-Same word, completely different final understanding — that's the power of 12, 24, or even 96 layers of "transformation."
+> Words that frequently fill the same blank end up with similar vectors — embeddings aren't designed by humans, the LLM learns them on its own.
 
 ----
 
@@ -202,15 +204,13 @@ How do we calculate "how well they match" with math?
 
 The method is called the **dot product** — multiply each matching trait, then add them all up.
 
-Think of it like matching friends: the more interests you share (high scores on the same traits), the bigger the total — better match!
-
-Let's see how well "cat" matches each word:
+Think of it like matching friends: the more interests you share (high scores on the same traits), the bigger the total — better match! Let's see how well "cat" matches each word:
 
 - cat Q · cat K = 1×1 + 1×0 + 1×0 + 1×0 = **1** — so-so
 - cat Q · sat K = 1×1 + 1×1 + 1×1 + 1×1 = **4** — great match!
 - cat Q · mat K = 1×0 + 1×0 + 1×0 + 1×1 = **1** — so-so
 
-"cat" and "sat" have the biggest dot product — "cat" pays the most attention to "sat", because the cat wants to know what it's doing!
+"cat" and "sat" have the biggest dot product — "cat" pays the most attention to "sat"!
 
 ----
 
@@ -370,6 +370,80 @@ Could we just use simple numbering (1, 2, 3...)?
 
 ----
 
+## What's Inside Each Layer?
+
+Now that we know Attention, Multi-Head Attention, and Positional Encoding, let's see what a full Transformer layer contains:
+
+1. **Multi-Head Attention**: Every word scans all others with multiple pairs of eyes, capturing different relationships
+2. **Feed-Forward Network**: Every word independently "thinks" about the clues it collected, updating its understanding
+
+There's also a **shortcut connection**: the word keeps its understanding from the previous layer. Even if one layer doesn't learn anything new, nothing is lost.
+
+Each layer = observe → think → move on with deeper understanding.
+
+----
+
+## Why Do Shortcut Connections Matter?
+
+Imagine 96 people in a line playing telephone — by the end, the message is garbled beyond recognition.
+
+This is the **vanishing gradient** problem: signals get weaker and weaker through many layers, so the LLM can't learn.
+
+How do we fix this?
+
+----
+
+## The Shortcut Connection Fix
+
+> output = layer(x) + x
+
+- Each layer passes a **copy of the original input** straight to its output
+- Even if one layer learns nothing useful (layer(x) ≈ 0), the original information survives
+- It's like playing telephone while also texting the original message — the truth always gets through
+
+----
+
+## Layer Normalization
+
+Shortcut connections solve the signal loss problem, but there's another issue: numbers can become **wildly different in size** after many layers, making the LLM "dizzy."
+
+**Layer normalization** is like recalibrating after each layer:
+
+- Rescale all numbers back to a **consistent range**
+- The relative order stays the same — only the scale gets tidied up
+- Like converting raw test scores to percentages — easier to compare and work with
+
+> Shortcut connection + layer normalization together form the green "Residual Connection + Layer Norm" blocks in the Transformer architecture diagram.
+
+----
+
+## Same Word, Layer by Layer
+
+Take the word "apple" and watch it transform through the layers:
+
+- **At input**: Just a symbol — the LLM doesn't know what it means yet
+- **After early layers**: Surrounding words give clues — "apple" is related to "eating" or "company"
+- **"I ate an apple"** → after deep layers: round, red, sweet — a fruit
+- **"Apple released a new phone"** → after deep layers: tech company, iPhone, Tim Cook
+
+Same word, completely different final understanding — that's the power of 12, 24, or even 96 layers of "transformation."
+
+----
+
+## A Complete Transformer "Blueprint"
+
+![Complete Transformer Architecture](src/en/images/transformer-architecture.svg)
+
+----
+
+<!-- .slide: class="center" -->
+
+## Now we understand the Transformer architecture. Next question —
+
+*How do we train it?*
+
+----
+
 ## Two ways to learn language
 
 Imagine learning a new language. You could:
@@ -523,12 +597,6 @@ Researchers found that training a simpler model **longer** and with **more data*
 
 ----
 
-## A Complete Transformer "Blueprint"
-
-![Complete Transformer Architecture](src/en/images/transformer-architecture.svg)
-
-----
-
 ## Chapter 1 Summary
 
 | Paper | Key Idea |
@@ -547,6 +615,18 @@ Researchers found that training a simpler model **longer** and with **more data*
 - [Jay Alammar: The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/) — Step-by-step diagrams of Attention, Keys, Queries, and Values
 - [Andrej Karpathy: Let's build GPT from scratch](https://www.youtube.com/watch?v=kCc8FmEb1nY) — Build a mini GPT yourself (video, 2 hours)
 - [BERT Explained Visually](https://jalammar.github.io/illustrated-bert/) — See how BERT fills in the blanks
+
+----
+
+## A Different Perspective
+
+Zoom out, and an LLM is really just a giant **mathematical function**:
+
+- **Input**: a sequence of tokens
+- **Inside the function**: embedding → attention → feed-forward → ... → repeat N layers
+- **Output**: probability of the next word
+
+All the vector spaces, dot products, matrix multiplications, softmax — together, they form one function: **f(input text) = output text**. Billions of parameters, but at its core, it's still y = f(x).
 
 ----
 
