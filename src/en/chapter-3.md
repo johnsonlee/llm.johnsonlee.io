@@ -2,7 +2,7 @@
 
 ## 3. Scaling Laws & Training Theory
 
-*Is a bigger brain always a smarter brain?*
+*Bigger is better — but how far can it go?*
 
 ----
 
@@ -43,6 +43,12 @@ LLMs follow the same pattern. Doubling the size doesn't double the performance �
 
 ----
 
+## Bigger Model = Better Performance?
+
+![Scaling law curve](src/en/images/scaling-curve.svg)
+
+----
+
 ## But wait — the recipe was wrong!
 
 The original recipe said: **spend most of your budget on a bigger model**.
@@ -70,7 +76,7 @@ The key insight: for every dollar you spend, split it roughly **equally** betwee
 
 ## Emergent Abilities: Unexpected Skills
 
-Something weird happens when models get really big:
+With the right recipe, models kept growing. But along the way, something unexpected started happening:
 
 - Small model: can't do arithmetic → bigger model: still can't → even bigger: **suddenly can!**
 - It's like a light switch — abilities appear out of nowhere
@@ -94,8 +100,9 @@ That's emergence: the LLM learns basic patterns, and at some point, those patter
 
 Other researchers pushed back:
 
-- Maybe these abilities aren't really "sudden"
-- If you change **how you measure** the task, the improvement looks **gradual**, not sudden
+- The original evaluation used "all-or-nothing" scoring — one wrong step = 0 points
+- Small model: 0%. Bigger: still 0%. Even bigger: suddenly 80%! — **looks like emergence**
+- Switch to "partial credit" scoring (how many steps were right?), and improvement looks **gradual**
 - The "magic" might be in how we measure, not in the model
 
 > [Are Emergent Abilities a Mirage?](https://arxiv.org/abs/2304.15004) (2023) — a healthy dose of skepticism
@@ -104,11 +111,9 @@ Other researchers pushed back:
 
 ## What if we run out of data?
 
-The internet is big, but it's not infinite. What happens when models need **more data than exists**?
+Whether emergence is real or a mirage, one practical problem remains: the internet is big, but not infinite. What happens when models need **more data than exists**?
 
-- You can **repeat** data — but performance drops after ~4 repetitions
-- You can **mix in code and math** — different data types help
-- You can **generate synthetic data** — have AI write training data for AI!
+![Three strategies for the data bottleneck](src/en/images/data-wall-solutions.svg)
 
 > [Scaling Data-Constrained Language Models](https://arxiv.org/abs/2305.16264) (2023) — when data is the bottleneck
 

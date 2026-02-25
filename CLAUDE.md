@@ -79,6 +79,7 @@ Slides within a chapter are separated by `----` (horizontal rule). The `<!-- .sl
 - **Match register to context.** Use casual, conversational language for explanations and analogies (e.g., "猜下一个词", "没地方坐了"). Use proper technical terms for concepts and definitions (e.g., "涌现能力", "分词器", not informal substitutes).
 - **Introduce before using.** Never use a term (e.g., "tokenizer", "token") without first explaining what it is. New concepts must be introduced on the same slide or an earlier slide before being referenced.
 - **Keep technical terms, explain in place.** Don't avoid proper terminology — annotate it on first use with a parenthetical or brief definition. For example: "训练数据（用来训练大语言模型的大量文本）".
+- **Diagram first for structures and flows.** When explaining architectures, pipelines, layer stacks, or any structural/procedural concept, prefer an SVG diagram over text-heavy bullet points. A single clear diagram communicates structure more effectively than paragraphs of description.
 
 ## Narrative Rules
 

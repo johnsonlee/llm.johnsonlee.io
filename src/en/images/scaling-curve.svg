@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" font-family="sans-serif">
+  <defs>
+    <marker id="axisArrow" markerWidth="10" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#666"/>
+    </marker>
+  </defs>
+
+  <!-- Y-axis -->
+  <line x1="100" y1="330" x2="100" y2="40" stroke="#666" stroke-width="2" marker-end="url(#axisArrow)"/>
+  <!-- X-axis -->
+  <line x1="100" y1="330" x2="730" y2="330" stroke="#666" stroke-width="2" marker-end="url(#axisArrow)"/>
+
+  <!-- Axis labels -->
+  <text x="50" y="185" text-anchor="middle" fill="#999" font-size="14" transform="rotate(-90,50,185)">Capability</text>
+  <text x="415" y="368" text-anchor="middle" fill="#999" font-size="14">Scale (Parameters / Data / Compute)</text>
+
+  <!-- Ceiling dashed line -->
+  <line x1="100" y1="52" x2="720" y2="52" stroke="#e85d5d" stroke-width="1.5" stroke-dasharray="8,4" opacity="0.5"/>
+  <text x="724" y="53" fill="#e85d5d" font-size="13" dominant-baseline="middle">Ceiling</text>
+
+  <!-- The scaling curve (power law) -->
+  <path d="M105,325 C175,235 270,130 390,88 C500,58 620,52 720,49"
+        stroke="#4a9eff" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Green annotation: fast improvement -->
+  <text x="220" y="200" fill="#5dbe8a" font-size="15" font-weight="bold">Fast improvement!</text>
+  <line x1="210" y1="208" x2="172" y2="248" stroke="#5dbe8a" stroke-width="1.5" stroke-dasharray="4"/>
+
+  <!-- Red annotation: diminishing returns -->
+  <text x="485" y="115" fill="#e85d5d" font-size="14" font-weight="bold">Doubling cost,</text>
+  <text x="485" y="135" fill="#e85d5d" font-size="14" font-weight="bold">little improvement</text>
+  <line x1="540" y1="143" x2="568" y2="70" stroke="#e85d5d" stroke-width="1.5" stroke-dasharray="4"/>
+</svg>

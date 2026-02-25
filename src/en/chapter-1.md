@@ -583,6 +583,20 @@ One model learns to handle **all** of these. No special architecture needed for 
 
 ----
 
+## The Formal Names for Three Paths
+
+Turning text into internal representations is called **encoding**; turning representations back into text is called **decoding**.
+
+| What we learned | Formal name | Direction |
+|---|---|---|
+| Fill in the blanks (BERT) | **Encoder-only** | ← looks both ways → |
+| Predict next word (GPT) | **Decoder-only** | looks forward only → |
+| Best of both (T5) | **Encoder-Decoder** | Encode both ways, decode forward |
+
+> GPT stands for **Generative Pre-trained Transformer** — a Decoder-only Transformer built to *generate*.
+
+----
+
 ## Does a smarter design always win?
 
 Surprisingly, **no**!

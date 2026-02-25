@@ -153,6 +153,12 @@ The extra thinking time lets the LLM catch mistakes, try different approaches, a
 
 ----
 
+## The ChatGPT You Use IS GPT!
+
+![ChatGPT = GPT + SFT + RLHF](src/en/images/chatgpt-stack.svg)
+
+----
+
 ## Chapter 2 Summary
 
 | Paper | Key Idea |
