@@ -31,6 +31,44 @@ Problem: by the time it reaches "mat", it has already forgotten "cat"!
 
 ----
 
+## The Heart of an LLM: A Mathematical Function
+
+Today's LLMs solve these problems. At its core, an LLM is a giant **mathematical function**:
+
+- **Input**: a piece of text
+- **Output**: probability of the next word
+- **Inside**: hundreds of billions of numbers doing addition, subtraction, multiplication, and division
+
+A function means "given some input, compute some output." An LLM and y = f(x) from math class are the same idea — just vastly different in dimensions.
+
+----
+
+## From y = f(x) to an LLM
+
+![From 2D function to high-dimensional function](src/en/images/math-function.svg)
+
+----
+
+## From Text to Math: Three Steps
+
+A function only understands numbers, not text! To make an LLM work, we need three steps:
+
+1. **Chop**: Split text into small pieces (tokens)
+2. **Locate**: Turn each token into coordinates (a vector) in mathematical space
+3. **Compute**: Dynamically adjust each token's coordinates based on context — so the LLM truly "understands"
+
+After these three steps, the LLM can "understand" text and produce answers. Let's walk through them!
+
+----
+
+<!-- .slide: class="center" -->
+
+## Step 1: Chop Text into Pieces
+
+*A function only understands numbers — first, break text into the smallest pieces*
+
+----
+
 ## But what is a "word" to an LLM?
 
 LLMs don't read words the way we do. They have a special tool called a **tokenizer**.
@@ -76,6 +114,14 @@ The most common method is called **Byte Pair Encoding (BPE)** — the core idea 
 - **Chinese**: starts by merging single characters (or UTF-8 bytes) — "喜" + "欢" → "喜欢"
 
 The merging logic is exactly the same: find the most frequent adjacent pair, merge, repeat.
+
+----
+
+<!-- .slide: class="center" -->
+
+## Step 2: Give Each Token Coordinates
+
+*Each piece needs a position in mathematical space*
 
 ----
 
@@ -126,15 +172,11 @@ After reading millions of sentences, the LLM notices:
 
 ----
 
-## Why Is It Called "Transformer"?
-
-![Transformer layer-by-layer transformation](src/en/images/transformer-layers.svg)
-
-----
-
 <!-- .slide: class="center" -->
 
-## What if the LLM could look at every token at the same time?
+## Step 3: Compute in Mathematical Space
+
+*Embedding gives each token a fixed position — but "apple" means different things in "eat an apple" and "Apple released a phone." How do we fix that?*
 
 ----
 
@@ -202,9 +244,9 @@ How do we calculate "how well they match" with math?
 
 ## Dot Product: Comparing Two "Report Cards"
 
-The method is called the **dot product** — multiply each matching trait, then add them all up.
+The method is called the **dot product** — multiply the matching scores from two report cards, then add them all up.
 
-Think of it like matching friends: the more interests you share (high scores on the same traits), the bigger the total — better match! Let's see how well "cat" matches each token:
+The more subjects where both scored high, the bigger the total — better match! Let's see how well "cat" matches each token:
 
 - cat Q · cat K = 1×1 + 1×0 + 1×0 + 1×0 = **1** — so-so
 - cat Q · sat K = 1×1 + 1×1 + 1×1 + 1×1 = **4** — great match!
@@ -444,6 +486,12 @@ Same token, completely different final understanding — that's the power of 12,
 
 ----
 
+## Why Is It Called "Transformer"?
+
+![Transformer layer-by-layer transformation](src/en/images/transformer-layers.svg)
+
+----
+
 ## A Complete Transformer "Blueprint"
 
 ![Complete Transformer Architecture](src/en/images/transformer-architecture.svg)
@@ -452,9 +500,9 @@ Same token, completely different final understanding — that's the power of 12,
 
 <!-- .slide: class="center" -->
 
-## Now we understand the Transformer architecture. Next question —
+## The function is built — how do we train it?
 
-*How do we train it?*
+*Architecture ready. Time to learn!*
 
 ----
 
@@ -622,18 +670,6 @@ Researchers found that training a simpler model **longer** and with **more data*
 - The recipe matters more than the ingredients
 
 > [RoBERTa](https://arxiv.org/abs/1907.11692) (2019) — same BERT design, better training, better results
-
-----
-
-## A Different Perspective
-
-Zoom out, and an LLM is really just a giant **mathematical function**:
-
-- **Input**: a sequence of tokens
-- **Inside the function**: embedding → attention → feed-forward → ... → repeat N layers
-- **Output**: probability of the next word
-
-All the vector spaces, dot products, matrix multiplications, softmax — together, they form one function: **f(input text) = output text**. Billions of parameters, but at its core, it's still y = f(x).
 
 ----
 

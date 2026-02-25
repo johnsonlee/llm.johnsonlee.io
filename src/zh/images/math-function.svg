@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 310">
+  <style>text { font-family: system-ui, -apple-system, sans-serif; }</style>
+  <defs>
+    <marker id="ax" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#999"/>
+    </marker>
+    <marker id="ap" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#8b5cf6"/>
+    </marker>
+    <marker id="ar" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#e85d5d"/>
+    </marker>
+    <marker id="ag" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#888"/>
+    </marker>
+  </defs>
+
+  <!-- ===== LEFT: y = f(x) ===== -->
+  <text x="175" y="28" text-anchor="middle" font-size="20" font-weight="bold" fill="#8b5cf6">y = f(x)</text>
+  <text x="175" y="50" text-anchor="middle" font-size="13" fill="#888">1 个数进去，1 个数出来</text>
+
+  <!-- Axes -->
+  <line x1="55" y1="218" x2="305" y2="218" stroke="#999" stroke-width="1.5" marker-end="url(#ax)"/>
+  <line x1="75" y1="238" x2="75" y2="68" stroke="#999" stroke-width="1.5" marker-end="url(#ax)"/>
+  <text x="310" y="222" font-size="14" font-style="italic" fill="#999">x</text>
+  <text x="68" y="66" text-anchor="end" font-size="14" font-style="italic" fill="#999">y</text>
+
+  <!-- Curve -->
+  <path d="M92,202 C125,130 165,105 200,125 C230,140 258,90 285,78" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Point + dashed projection lines -->
+  <line x1="190" y1="123" x2="190" y2="218" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <line x1="75" y1="123" x2="190" y2="123" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <circle cx="190" cy="123" r="4" fill="#8b5cf6"/>
+  <text x="190" y="236" text-anchor="middle" font-size="12" fill="#8b5cf6">x</text>
+  <text x="67" y="128" text-anchor="end" font-size="12" fill="#8b5cf6">y</text>
+
+  <text x="175" y="268" text-anchor="middle" font-size="13" fill="#888">直角坐标系 = 2 维空间的"地图"</text>
+
+  <!-- ===== CENTER ===== -->
+  <line x1="342" y1="145" x2="418" y2="145" stroke="#888" stroke-width="2" marker-end="url(#ag)"/>
+  <text x="380" y="170" text-anchor="middle" font-size="12" fill="#888">维度升级！</text>
+
+  <!-- ===== RIGHT: LLM ===== -->
+  <text x="610" y="28" text-anchor="middle" font-size="20" font-weight="bold" fill="#4a9eff">大语言模型</text>
+  <text x="610" y="50" text-anchor="middle" font-size="13" fill="#888">成千上万个数进出</text>
+
+  <!-- Function box -->
+  <rect x="575" y="78" width="70" height="140" rx="8" fill="#4a9eff"/>
+  <text x="610" y="155" text-anchor="middle" font-size="24" font-weight="bold" fill="#fff">f</text>
+
+  <!-- Inputs -->
+  <line x1="470" y1="98" x2="567" y2="98" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#ap)"/>
+  <line x1="470" y1="128" x2="567" y2="128" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#ap)"/>
+  <line x1="470" y1="158" x2="567" y2="158" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#ap)"/>
+  <line x1="470" y1="198" x2="567" y2="198" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#ap)"/>
+  <text x="462" y="103" text-anchor="end" font-size="13" fill="#8b5cf6">x₁</text>
+  <text x="462" y="133" text-anchor="end" font-size="13" fill="#8b5cf6">x₂</text>
+  <text x="462" y="163" text-anchor="end" font-size="13" fill="#8b5cf6">x₃</text>
+  <text x="462" y="184" text-anchor="end" font-size="14" fill="#888">⋮</text>
+  <text x="462" y="203" text-anchor="end" font-size="13" fill="#8b5cf6">xₙ</text>
+
+  <!-- Outputs -->
+  <line x1="653" y1="98" x2="740" y2="98" stroke="#e85d5d" stroke-width="1.5" marker-end="url(#ar)"/>
+  <line x1="653" y1="128" x2="740" y2="128" stroke="#e85d5d" stroke-width="1.5" marker-end="url(#ar)"/>
+  <line x1="653" y1="158" x2="740" y2="158" stroke="#e85d5d" stroke-width="1.5" marker-end="url(#ar)"/>
+  <line x1="653" y1="198" x2="740" y2="198" stroke="#e85d5d" stroke-width="1.5" marker-end="url(#ar)"/>
+  <text x="752" y="103" font-size="13" fill="#e85d5d">y₁</text>
+  <text x="752" y="133" font-size="13" fill="#e85d5d">y₂</text>
+  <text x="752" y="163" font-size="13" fill="#e85d5d">y₃</text>
+  <text x="752" y="184" font-size="14" fill="#888">⋮</text>
+  <text x="752" y="203" font-size="13" fill="#e85d5d">yₘ</text>
+
+  <text x="610" y="250" text-anchor="middle" font-size="13" fill="#888">高维空间（几千维甚至上万维！）</text>
+
+  <!-- Bottom takeaway -->
+  <text x="400" y="300" text-anchor="middle" font-size="14" fill="#555">本质相同：数据进 → 运算 → 结果出。维度越多，能处理的信息就越丰富。</text>
+</svg>
