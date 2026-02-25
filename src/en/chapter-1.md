@@ -44,7 +44,7 @@ The tokenizer splits text into small pieces called **tokens**:
 
 ## How does the tokenizer decide where to split?
 
-- Before training, it scans the **training data** and finds which pieces appear most often, building a fixed vocabulary
+- Before training, it scans the **training data** (the large collection of text used to teach the LLM) and finds which pieces appear most often, building a fixed vocabulary
 - After that, every user input is split using the same vocabulary
 - "happiness" shows up a lot → stays whole
 - "unhappiness" is rarer → split into "un" + "happiness", two pieces it already knows
@@ -79,15 +79,9 @@ The merging logic is exactly the same: find the most frequent adjacent pair, mer
 
 ----
 
-## Why Is It Called "Transformer"?
-
-![Transformer layer-by-layer transformation](src/en/images/transformer-layers.svg)
-
-----
-
 ## Embedding: Turning Words into Numbers
 
-Every Transformer layer runs on math — but words aren't numbers. How does an LLM "see" text?
+An LLM runs entirely on math — but words aren't numbers. How does an LLM "see" text?
 
 - Each token gets **a list of numbers** representing its meaning — this list is called a **vector**, which is just a fancy word for "numbers in a row"
 - This "token → vector" conversion is called **embedding**
@@ -105,7 +99,7 @@ Every Transformer layer runs on math — but words aren't numbers. How does an L
 
 ## How Long Is a Vector?
 
-Our diagram uses only 4 numbers per vector, but real LLMs use much longer ones:
+Our diagram uses only 4 numbers per vector, but real LLMs use much longer ones (BERT and GPT are well-known LLMs we'll learn about later):
 
 | LLM | Vector length (dimension d) |
 |---|---|
@@ -129,6 +123,12 @@ After reading millions of sentences, the LLM notices:
 - "I wiped the ___ clean" — only "table" fits, not "cat" or "dog" → vectors stay far apart
 
 > Words that frequently fill the same blank end up with similar vectors — embeddings aren't designed by humans, the LLM learns them on its own.
+
+----
+
+## Why Is It Called "Transformer"?
+
+![Transformer layer-by-layer transformation](src/en/images/transformer-layers.svg)
 
 ----
 
@@ -243,7 +243,7 @@ Each part maps to a step we just did:
 | softmax | Pie chart — turn into percentages |
 | · V | Mix by percentage — get the final result |
 
-One-line summary: **compare report cards, cool down, draw pie chart, mix by weight**.
+One-line summary: **compare report cards, cool down, draw pie chart, mix by weight**. Why must we "cool down"? Find out next!
 
 ----
 
@@ -413,7 +413,7 @@ Shortcut connections solve the signal loss problem, but there's another issue: n
 - The relative order stays the same — only the scale gets tidied up
 - Like converting raw test scores to percentages — easier to compare and work with
 
-> Shortcut connection + layer normalization together form the green "Residual Connection + Layer Norm" blocks in the Transformer architecture diagram.
+> Shortcut connections are also called **residual connections** — together with layer normalization, they form the "Add & Norm" blocks in Transformer architecture diagrams.
 
 ----
 
@@ -597,6 +597,18 @@ Researchers found that training a simpler model **longer** and with **more data*
 
 ----
 
+## A Different Perspective
+
+Zoom out, and an LLM is really just a giant **mathematical function**:
+
+- **Input**: a sequence of tokens
+- **Inside the function**: embedding → attention → feed-forward → ... → repeat N layers
+- **Output**: probability of the next word
+
+All the vector spaces, dot products, matrix multiplications, softmax — together, they form one function: **f(input text) = output text**. Billions of parameters, but at its core, it's still y = f(x).
+
+----
+
 ## Chapter 1 Summary
 
 | Paper | Key Idea |
@@ -615,18 +627,6 @@ Researchers found that training a simpler model **longer** and with **more data*
 - [Jay Alammar: The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/) — Step-by-step diagrams of Attention, Keys, Queries, and Values
 - [Andrej Karpathy: Let's build GPT from scratch](https://www.youtube.com/watch?v=kCc8FmEb1nY) — Build a mini GPT yourself (video, 2 hours)
 - [BERT Explained Visually](https://jalammar.github.io/illustrated-bert/) — See how BERT fills in the blanks
-
-----
-
-## A Different Perspective
-
-Zoom out, and an LLM is really just a giant **mathematical function**:
-
-- **Input**: a sequence of tokens
-- **Inside the function**: embedding → attention → feed-forward → ... → repeat N layers
-- **Output**: probability of the next word
-
-All the vector spaces, dot products, matrix multiplications, softmax — together, they form one function: **f(input text) = output text**. Billions of parameters, but at its core, it's still y = f(x).
 
 ----
 

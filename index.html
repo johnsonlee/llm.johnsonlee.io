@@ -99,17 +99,28 @@
         right: auto;
         left: 16px;
       }
+      .reveal .searchbox {
+        top: 16px !important;
+        right: 88px !important;
+      }
+      .reveal .searchbox .searchinput {
+        padding: 6px 16px !important;
+        border-radius: 20px !important;
+        font-size: 14px !important;
+      }
       #lang-toggle {
         position: fixed;
         top: 16px;
         right: 16px;
         z-index: 100;
-        padding: 6px 16px;
+        min-width: 56px;
+        padding: 6px 0;
         border-radius: 20px;
         background: rgba(231, 173, 82, 0.9);
         color: #1a1a2e;
         font-weight: bold;
         font-size: 14px;
+        text-align: center;
         text-decoration: none;
         cursor: pointer;
         transition: background 0.2s;
