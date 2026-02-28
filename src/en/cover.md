@@ -2,7 +2,7 @@
 
 # LLM for Kids
 
-#### A Friendly Guide to 100 Must-Read Papers on Large Language Models
+### A Friendly Guide to 100 Must-Read Papers on LLM <br>(Large Language Models)
 
 &nbsp;
 
