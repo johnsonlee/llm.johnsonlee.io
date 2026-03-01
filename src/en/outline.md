@@ -6,7 +6,7 @@
 
 ## 16 Topics, 100 Papers
 
-<ol class="two-columns">
+<ol>
 <li>How LLMs Learn Language</li>
 <li>The GPT Family</li>
 <li>Is Bigger Always Smarter?</li>
